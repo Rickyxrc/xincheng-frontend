@@ -1,10 +1,10 @@
 <template>
-  <el-menu :collapse="false" @select="router.name">
-    <el-menu-item index="home">
+  <el-menu :collapse="false" @select="router.name" router="true">
+    <el-menu-item index="/">
       <el-icon><icon-menu /></el-icon>
       <template #title>主页</template>
     </el-menu-item>
-    <el-menu-item index="1">
+    <el-menu-item index="/problems">
       <el-icon><icon-menu /></el-icon>
       <template #title>题目列表</template>
     </el-menu-item>
@@ -31,10 +31,7 @@ export default { MenuBar };
 
 <script lang="ts" setup>
 import {
-  Document,
   Menu as IconMenu,
-  Location,
-  Setting,
 } from "@element-plus/icons-vue";
 </script>
 
