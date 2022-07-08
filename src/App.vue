@@ -1,21 +1,30 @@
 <template>
-  <router-view></router-view>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view />
 </template>
 
-<style></style>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-<script>
-// import { defineComponent } from "vue";
-// import { useLoadingBar } from "naive-ui";
+nav {
+  padding: 30px;
+}
 
-// export default defineComponent({
-//   setup() {
-//     const loadingBar = useLoadingBar();
-//     return {
-//       loading() {
-//         loadingBar.start();
-//       },
-//     };
-//   },
-// });
-</script>
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>
