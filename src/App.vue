@@ -12,7 +12,12 @@
   </div>
 </template>
 
-<style scoped></style>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
+body {
+  font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
+}
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -25,4 +30,6 @@ export default defineComponent({
     TopBar,
   },
 });
+
+
 </script>
