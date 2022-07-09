@@ -1,5 +1,5 @@
 <template>
-    <el-input v-model="input" placeholder="键入以搜索题目......" />
+    <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
     <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="pid" label="PID" />
         <el-table-column prop="score" label="分数">
@@ -37,20 +37,32 @@ import post from "axios";
 export default defineComponent({
     data() {
         return {
-            input: "",
+            searchBoxContent: "",
             tableData: this.getData()
         }
     },
     methods: {
         getData() {
-            post("http://localhost/problems/list", {})
+            // var url = ""
+            // if (this.searchBoxContent != undefined)
+            //     url += '?data=' + 
+            post('http://localhost/problems/list', {
+                params: {
+                    data:this.searchBoxContent
+                }
+            })
                 .then((data: any) => {
                     this.tableData = data["data"];
                     console.log(data["data"]);
-                    
+
                 });
         }
     },
+    watch: {
+        searchBoxContent() {
+            this.getData();
+        }
+    }
 });
 </script>
 
