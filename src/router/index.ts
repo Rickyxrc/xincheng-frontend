@@ -11,6 +11,10 @@ const routes: Array<RouteRecordRaw> = [
     name: "problemlist",
     component: () => import("../views/ProblemList.vue"),
   },
+  {
+    path: "/:catchAll(.*)",
+    component: () => import("../views/NotFoundView.vue"),
+  }
 ];
 
 const router = createRouter({

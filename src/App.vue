@@ -1,28 +1,31 @@
 <template>
-  <div class="common-layout" v-if="show">
-    <template v-if="!$cookies.get('api_key')">
-      <login-view @transfer="setcookie"></login-view>
-    </template>
-    <el-container v-else>
-      <el-header>
-        <top-bar></top-bar>
-      </el-header>
-      <el-container>
-        <el-aside>
-          <menu-bar></menu-bar>
-        </el-aside>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
+  <keep-alive>
+    <div class="common-layout" v-if="show">
+      <template v-if="!$cookies.get('api_key')">
+        <login-view @transfer="setcookie"></login-view>
+      </template>
+      <el-container v-else>
+        <el-header>
+          <top-bar @logout="clearcookie"></top-bar>
+        </el-header>
+        <el-container>
+          <el-aside>
+            <menu-bar></menu-bar>
+          </el-aside>
+          <el-main>
+            <router-view></router-view>
+          </el-main>
+        </el-container>
       </el-container>
-    </el-container>
-  </div>
+    </div>
+  </keep-alive>
 </template>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
 
 body {
+  margin: 0;
   font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
 }
 </style>
@@ -50,6 +53,13 @@ export default defineComponent({
     },
     setcookie(dat: any) {
       this.$cookies.set('api_key', dat);
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    },
+    clearcookie() {
+      this.$cookies.remove('api_key');
       this.show = false
       this.$nextTick(() => {
         this.show = true

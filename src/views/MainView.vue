@@ -4,6 +4,13 @@
     type="success"
     description="欢迎来到新成Online Judge System!"
   />
+  <br>
+  <el-alert
+    title="我们刚刚进行了一次更新"
+    type="success"
+    description="upd 2022/7/10 对用户界面进行了优化"
+  />
+  <br>
   <el-button type="danger" plain @click="open">真的 不要点我</el-button>
   <el-button type="success" plain @click="open">CLICK ME!</el-button>
 </template>

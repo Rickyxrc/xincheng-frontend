@@ -1,6 +1,6 @@
 <template>
     <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column prop="pid" label="PID" />
         <el-table-column prop="score" label="分数">
             <template #default="scope">
@@ -31,27 +31,27 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { ElNotification } from "element-plus";
+import { ElLoading } from "element-plus";
 import post from "axios";
 
 export default defineComponent({
     data() {
         return {
+            loading:true,
             searchBoxContent: "",
             tableData: this.getData()
         }
     },
     methods: {
         getData() {
-            // var url = ""
-            // if (this.searchBoxContent != undefined)
-            //     url += '?data=' + 
+            this.loading = true;
             post('https://api.oj.rickyxrc.top/problems/list', {
                 params: {
-                    data:this.searchBoxContent
+                    data: this.searchBoxContent
                 }
             })
                 .then((data: any) => {
+                    this.loading = false;
                     this.tableData = data["data"];
                     console.log(data["data"]);
 
