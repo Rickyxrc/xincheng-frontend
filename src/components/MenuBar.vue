@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import router from "../router";
 
 const MenuBar = defineComponent({
   setup() {

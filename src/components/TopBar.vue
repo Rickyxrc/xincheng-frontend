@@ -4,10 +4,17 @@
     class="el-menu-demo"
     mode="horizontal"
     :ellipsis="false"
-    @select="handleSelect"
-  >
+    @select="handleSelect">
     <el-menu-item>新成OJ</el-menu-item>
     <div class="flex-grow" />
+    <el-popover
+      placement="bottom"
+      trigger="hover"
+      content="content">
+      <template #reference>
+        <el-avatar shape="square" :src="src" />
+      </template>
+    </el-popover>
 
   </el-menu>
 </template>
@@ -16,10 +23,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    setup() {
-        return
-    },
-    name: 'TopBar',
+  name: 'TopBar',
 })
 </script>
 
@@ -31,6 +35,7 @@ const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+const src = "/head.png";
 </script>
 
 <style>

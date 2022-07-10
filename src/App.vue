@@ -1,9 +1,16 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header><top-bar></top-bar></el-header>
+  <div class="common-layout" v-if="show">
+    <template v-if="!$cookies.get('api_key')">
+      <login-view @transfer="setcookie"></login-view>
+    </template>
+    <el-container v-else>
+      <el-header>
+        <top-bar></top-bar>
+      </el-header>
       <el-container>
-        <el-aside><menu-bar></menu-bar></el-aside>
+        <el-aside>
+          <menu-bar></menu-bar>
+        </el-aside>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -14,6 +21,7 @@
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
+
 body {
   font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
 }
@@ -21,15 +29,34 @@ body {
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import MenuBar from "@/components/MenuBar.vue";
-import TopBar from "@/components/TopBar.vue";
+import MenuBar from "./components/MenuBar.vue";
+import TopBar from "./components/TopBar.vue";
+import LoginView from "./views/LoginView.vue";
 
 export default defineComponent({
+  data: () => {
+    return {
+      show: true,
+    }
+  },
   components: {
     MenuBar,
     TopBar,
+    LoginView,
   },
-});
+  methods: {
+    getcookie() {
+      return this.$cookies.get('api_key')
+    },
+    setcookie(dat: any) {
+      this.$cookies.set('api_key', dat);
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
 
+    }
+  }
+});
 
 </script>

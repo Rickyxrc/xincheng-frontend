@@ -18,36 +18,30 @@ const errR = () => {
         title: "Network Error",
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
         showClose: false,
-        duration: 0,
       });
       ElNotification.error({
         title: "Network Error",
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
         showClose: false,
-        duration: 0,
         position: "bottom-right",
       });
       ElNotification.error({
         title: "Network Error",
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
         showClose: false,
-        duration: 0,
         position: "bottom-left",
       });
       ElNotification.error({
         title: "Network Error",
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
         showClose: false,
-        duration: 0,
         position: "top-left",
       });
       ElMessage.error({
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-        duration: 0,
       });
       ElMessage.warning({
         message: "Request Error: HTTPS/1.2 TLS/1.2 418 I'm a teapot",
-        duration: 0,
       });
     }, i * 20);
   }
