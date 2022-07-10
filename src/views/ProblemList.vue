@@ -46,7 +46,7 @@ export default defineComponent({
             // var url = ""
             // if (this.searchBoxContent != undefined)
             //     url += '?data=' + 
-            post('http://localhost/problems/list', {
+            post('https://api.oj.rickyxrc.top/problems/list', {
                 params: {
                     data:this.searchBoxContent
                 }

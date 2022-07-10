@@ -80,7 +80,7 @@ export default defineComponent({
     },
     methods: {
         getSession() {
-            post('http://localhost/users/login', {
+            post('https://api.oj.rickyxrc.top/users/login', {
                 params: {
                     username:this.userinfo['username'],
                     password:this.userinfo['password']
