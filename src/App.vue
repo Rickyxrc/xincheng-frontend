@@ -21,11 +21,9 @@
   </keep-alive>
 </template>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
-
-body {
-  margin: 0;
+* {
   font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
 }
 </style>
