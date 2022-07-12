@@ -22,9 +22,9 @@
 </template>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
+@import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif");
 * {
-  font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
+  font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
 </style>
 

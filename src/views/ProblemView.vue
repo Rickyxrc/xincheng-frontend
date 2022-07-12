@@ -5,7 +5,8 @@
   <el-row :gutter="20">
     <el-col :span="18">
       <el-card>
-        {{ problem.text }}
+        <el-container v-html="problem.html">
+        </el-container>
       </el-card>
     </el-col>
     <el-col :span="6">
@@ -24,6 +25,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import router from "../router/index";
+import { marked } from 'marked';
 
 export default defineComponent({
   props: ["pid"],
@@ -31,7 +33,7 @@ export default defineComponent({
     return {
       problem: {
         name: "题目名称",
-        text: "# 描述信息",
+        html: marked.parse("# 描述信息"),
       },
     };
   },

@@ -27,16 +27,3 @@ const MenuBar = defineComponent({
 
 export default { MenuBar };
 </script>
-
-<script lang="ts" setup>
-import {
-  Menu as IconMenu,
-} from "@element-plus/icons-vue";
-</script>
-
-<style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
-</style>

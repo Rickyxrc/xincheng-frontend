@@ -1,20 +1,25 @@
 <template>
   <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
-  <el-table :data="tableData" style="width: 100%" v-loading="loading">
+  <el-table
+    :data="tableData"
+    style="width: 100%"
+    v-loading="loading"
+    @row-click="jump"
+  >
     <el-table-column prop="pid" label="PID" />
 
     <el-table-column prop="title" label="标题">
-      <template #default="scope"
-        ><router-link :to="'/problems/XC'+scope.row.pid">{{ scope.row.title }}</router-link>
+      <template #default="scope">
+        {{ scope.row.title }}
         &nbsp;
-        <el-tag class="ml-2" type="danger" v-if="scope.row.difficulty == 1"
-          >渣渣题</el-tag
-        >
+        <el-tag class="ml-2" type="danger" v-if="scope.row.difficulty == 1">
+          渣渣题
+        </el-tag>
         <el-tag
           class="ml-2"
           type="warning"
           v-else-if="scope.row.difficulty == 2"
-          >简单题
+        >简单题
         </el-tag>
         <el-tag
           class="ml-2"
@@ -54,9 +59,20 @@
   </el-table>
 </template>
 
+<style scoped>
+a {
+  color: rgb(58, 143, 255);
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(45, 115, 207);
+}
+</style>
+
 <script lang="ts">
+import { ElNotification } from "element-plus";
 import { defineComponent } from "vue";
-import { ElLoading } from "element-plus";
+import router from "../router";
 import post from "axios";
 
 export default defineComponent({
@@ -74,11 +90,23 @@ export default defineComponent({
         params: {
           data: this.searchBoxContent,
         },
-      }).then((data: any) => {
-        this.loading = false;
-        this.tableData = data["data"];
-        console.log(data["data"]);
-      });
+      })
+        .then((data: any) => {
+          this.loading = false;
+          this.tableData = data["data"];
+          console.log(data["data"]);
+        })
+        .catch(() => {
+          ElNotification.error({
+            title: "网络错误",
+            message: "网络错误，请再试一次",
+            showClose: false,
+          });
+        });
+    },
+    jump(row: any) {
+      console.log("jump", row["pid"]);
+      router.push("/problems/XC" + row["pid"]);
     },
   },
   watch: {
@@ -88,7 +116,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<script lang="ts" setup>
-</script>
-
