@@ -34,6 +34,7 @@ export default defineComponent({
       problem: {
         name: "题目名称",
         html: marked.parse("# 描述信息"),
+        score: 100
       },
     };
   },
