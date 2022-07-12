@@ -1,10 +1,10 @@
 <template>
     <div class="fullscreen">
-        <el-col :span="6" :offset="9">
+        <el-col :span="6" :offset="9" style="margin-top:12vh;">
             <el-card class="box-card blurin">
                 <template #header>
                     <div class="card-header">
-                        <el-form :model="userinfo">
+                        <el-form :model="userinfo" v-loading="loading">
                             <el-form-item label="登录到新成OJ">
                             </el-form-item>
                             <el-form-item label="用户">
@@ -19,7 +19,6 @@
                         </el-form>
                     </div>
                 </template>
-
             </el-card>
         </el-col>
     </div>
@@ -66,6 +65,7 @@ import post from 'axios';
 export default defineComponent({
     data: () => {
         return {
+            loading: false,
             userinfo: {
                 username: "",
                 password: ""
@@ -74,18 +74,14 @@ export default defineComponent({
     },
     methods: {
         getSession() {
-            const loading = ElLoading.service({
-                lock: true,
-                text: '加载中……',
-                background: 'rgba(0, 0, 0, 0.7)',
-            })
+            this.loading = true;
             post('https://api.oj.rickyxrc.top/users/login', {
                 params: {
                     username: this.userinfo['username'],
                     password: this.userinfo['password']
                 }
             }).then((data: any) => {
-                loading.close();
+                this.loading = false;
                 if (data['data']['stat'] != 0) {
                     ElNotification.error({
                         title: "登录失败",
@@ -99,6 +95,12 @@ export default defineComponent({
                     });
                     this.$emit('transfer', data['data']['session']);
                 }
+            }).catch( (err:any) =>{
+                this.loading = false;
+                ElNotification.error({
+                    title: "登录失败",
+                    message: "网络错误，请稍后再试",
+                });
             })
         }
     }
