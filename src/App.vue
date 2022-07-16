@@ -1,7 +1,7 @@
 <template>
   <keep-alive>
     <div class="common-layout" v-if="show">
-      <template v-if="!$cookies.get('api_key')">
+      <template v-if="api_valid()">
         <login-view @transfer="setcookie"></login-view>
       </template>
       <el-container v-else>
@@ -46,8 +46,12 @@ export default defineComponent({
     LoginView,
   },
   methods: {
-    getcookie() {
-      return this.$cookies.get('api_key')
+    api_valid() {
+      let cookie = this.$cookies.get('api_key');
+      if ((cookie != '') && (cookie != undefined) && (cookie != 'undefined'))
+        return false;
+      else
+        return true;
     },
     setcookie(dat: any) {
       this.$cookies.set('api_key', dat);
