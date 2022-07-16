@@ -9,17 +9,20 @@
       <template #default>
         <div
           class="demo-rich-conent"
-          style="display: flex; gap: 16px; flex-direction: column">
+          style="display: flex; gap: 16px; flex-direction: column"
+        >
           <el-avatar shape="square" :src="src" />
           <div>
             <p
               class="demo-rich-content__name"
-              style="margin: 0; font-weight: 500">
+              style="margin: 0; font-weight: 500"
+            >
               Rickyxrc
             </p>
             <p
               class="demo-rich-content__mention"
-              style="margin: 0; font-size: 14px; color: var(--el-color-info)">
+              style="margin: 0; font-size: 14px; color: var(--el-color-info)"
+            >
               @新成OJ
             </p>
           </div>

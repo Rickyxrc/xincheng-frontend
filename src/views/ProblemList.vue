@@ -35,7 +35,7 @@
   </el-table>
 </template>
 
-<style>
+<style scoped>
 a {
   color: rgb(58, 143, 255);
   text-decoration: none;
@@ -87,12 +87,12 @@ export default defineComponent({
         });
     },
     jump(row: any) {
-      console.log("jump", row.pid);
+      // console.log("jump", row.pid);
       router.push("/problems/XC" + row.pid);
     },
     getClassName(row: any) {
-      console.log('index', row.rowIndex);
-      console.log('aft', this.tableData[row.rowIndex].active)
+      // console.log('index', row.rowIndex);
+      // console.log('aft', this.tableData[row.rowIndex].active)
       if (this.tableData[row.rowIndex].active == 0)
         return 'inactive';
       else
