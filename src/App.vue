@@ -21,12 +21,10 @@
   </keep-alive>
 </template>
 
-<style>
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans+SC|Josefin+Sans");
-
-body {
-  margin: 0;
-  font-family: "Josefin Sans", "Noto Sans SC", Helvetica, sans-serif;
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif");
+* {
+  font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
 </style>
 

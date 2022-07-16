@@ -9,10 +9,10 @@ import { defineComponent } from 'vue'
 import router from '../router/index';
 
 export default defineComponent({
-    methods: {
-        goback() {
-            router.go(-1);
-        }
+  methods: {
+    goback() {
+      router.go(-1);
     }
+  }
 })
 </script>

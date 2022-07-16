@@ -1,16 +1,8 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    class="el-menu-demo"
-    mode="horizontal"
-    :ellipsis="false"
-    @select="handleSelect">
+  <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
     <el-menu-item>新成OJ</el-menu-item>
     <div class="flex-grow" />
-    <el-popover
-      placement="left"
-      trigger="hover"
-      content="content">
+    <el-popover placement="left" trigger="hover" content="content">
       <template #reference>
         <el-avatar :src="src" />
       </template>
@@ -38,30 +30,25 @@
         </div>
       </template>
     </el-popover>
-
   </el-menu>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'TopBar', methods: {
+  data() {
+    return {
+      src: "/head.png",
+    };
+  },
+  name: "TopBar",
+  methods: {
     logout() {
-      this.$emit('logout');
-    }
-  }
-})
-</script>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const src = "/head.png";
+      this.$emit("logout");
+    },
+  },
+});
 </script>
 
 <style>

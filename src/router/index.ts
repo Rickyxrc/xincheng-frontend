@@ -7,6 +7,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/MainView.vue'),
   },
   {
+    path: "/problems/XC:pid/",
+    props: true,
+    name: "problem",
+    component: () => import("../views/ProblemView.vue"),
+  },
+  {
     path: "/problems/list/",
     name: "problemlist",
     component: () => import("../views/ProblemList.vue"),
@@ -18,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 
