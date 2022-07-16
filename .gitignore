@@ -29,3 +29,4 @@ dist/
 # tencent serverless
 scf_bootstrap
 serverless.yml
+.vercel
