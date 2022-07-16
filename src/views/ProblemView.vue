@@ -1,15 +1,8 @@
 <template>
-<<<<<<< HEAD
   <el-card style="margin-bottom:20px;" v-loading="loading">
     <el-page-header :content="problem.title" @back="back" />
   </el-card>
   <el-row :gutter="20" v-loading="loading">
-=======
-  <el-card style="margin-bottom:20px;">
-    <el-page-header :content="problem.name" @back="back" />
-  </el-card>
-  <el-row :gutter="20">
->>>>>>> dc4f29ed6e18d81c660dd079faff5a01822bf2d8
     <el-col :span="18">
       <el-card>
         <el-container v-html="problem.html">
@@ -19,13 +12,7 @@
     <el-col :span="6">
       <el-card>
         <el-form>
-<<<<<<< HEAD
           <el-form-item label="题目名称"><span>{{ problem.title }}</span></el-form-item>
-=======
-          <el-form-item label="题目名称"
-            ><span>{{ problem.name }}</span></el-form-item
-          >
->>>>>>> dc4f29ed6e18d81c660dd079faff5a01822bf2d8
           <el-form-item label="分数">{{ problem.score }}</el-form-item>
         </el-form>
       </el-card>
@@ -37,7 +24,6 @@
 import { defineComponent } from "vue";
 import router from "../router/index";
 import { marked } from 'marked';
-<<<<<<< HEAD
 import post from "axios";
 
 export default defineComponent({
@@ -73,24 +59,5 @@ export default defineComponent({
       tmp: this.getProblem(),
     };
   },
-=======
-
-export default defineComponent({
-  props: ["pid"],
-  data: () => {
-    return {
-      problem: {
-        name: "题目名称",
-        html: marked.parse("# 描述信息"),
-        score: 100
-      },
-    };
-  },
-  methods: {
-    back() {
-      router.go(-1);
-    },
-  },
->>>>>>> dc4f29ed6e18d81c660dd079faff5a01822bf2d8
 });
 </script>

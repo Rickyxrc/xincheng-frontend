@@ -56,7 +56,6 @@ import { defineComponent } from "vue";
 import post from "axios";
 
 export default defineComponent({
-<<<<<<< HEAD
   data: () => {
     return {
       loading: false,
@@ -99,48 +98,4 @@ export default defineComponent({
     },
   },
 });
-=======
-    data: () => {
-        return {
-            loading: false,
-            userinfo: {
-                username: "",
-                password: ""
-            }
-        }
-    },
-    methods: {
-        getSession() {
-            this.loading = true;
-            post('https://api.oj.rickyxrc.top/users/login', {
-                params: {
-                    username: this.userinfo['username'],
-                    password: this.userinfo['password']
-                }
-            }).then((data: any) => {
-                this.loading = false;
-                if (data['data']['stat'] != 0) {
-                    ElNotification.error({
-                        title: "登录失败",
-                        message: "用户不存在或密码错误",
-                    });
-                }
-                else {
-                    ElNotification.success({
-                        title: "登录成功",
-                        message: "欢迎来到新成OJ!",
-                    });
-                    this.$emit('transfer', data['data']['session']);
-                }
-            }).catch( (err:any) =>{
-                this.loading = false;
-                ElNotification.error({
-                    title: "登录失败",
-                    message: "网络错误，请稍后再试",
-                });
-            })
-        }
-    }
-})
->>>>>>> dc4f29ed6e18d81c660dd079faff5a01822bf2d8
 </script>
