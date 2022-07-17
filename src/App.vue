@@ -6,7 +6,7 @@
       </template>
       <el-container v-else>
         <el-header>
-          <top-bar @logout="clearcookie"></top-bar>
+          <top-bar class="top" @logout="clearcookie"></top-bar>
         </el-header>
         <el-container>
           <el-aside>
@@ -25,6 +25,11 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif");
 * {
   font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
+}
+.top .el-header {
+  position: relative;
+  background-color: var(--el-color-primary-light-7);
+  color: var(--el-text-color-primary);
 }
 </style>
 

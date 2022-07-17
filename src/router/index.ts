@@ -13,6 +13,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/ProblemView.vue"),
   },
   {
+    path: "/problems/XC:pid/edit",
+    props: true,
+    name: "editproblem",
+    component: () => import("../views/EditProblem.vue")
+  },
+  {
     path: "/problems/list/",
     name: "problemlist",
     component: () => import("../views/ProblemList.vue"),

@@ -16,14 +16,18 @@
   <br>
   <el-button type="danger" plain @click="open">真的 不要点我</el-button>
   <el-button type="success" plain @click="open">CLICK ME!</el-button>
+  <User />
 </template>
 
-<script lang="ts" setup>
-import { ElNotification, ElMessage, ElMessageBox } from "element-plus";
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { ElNotification,ElMessage,ElMessageBox } from 'element-plus';
 
-const errR = () => {
-  for (var i = 0; i < 20; i++) {
-    setTimeout(() => {
+export default defineComponent({
+  methods: {
+    errR(){
+    for (var i = 0; i < 20; i++) {
+      setTimeout(() => {
       ElNotification.error({
         title: "Network Error",
         message: "Request Error: HTTPS/1.2 TLS/1.2 Handshake Failed",
@@ -54,15 +58,16 @@ const errR = () => {
         message: "Request Error: HTTPS/1.2 TLS/1.2 418 I'm a teapot",
       });
     }, i * 20);
-  }
-};
-
-const open = () => {
-  window.onbeforeunload = errR;
-  ElMessageBox.alert("点击OK以登录", "请稍后", {
-    confirmButtonText: "OK",
-  })
-    .then(errR)
-    .catch(errR);
-};
+    }
+    },
+    open(){
+      window.onbeforeunload = this.errR;
+      ElMessageBox.alert("点击OK以登录", "请稍后", {
+        confirmButtonText: "OK",
+      })
+        .then(this.errR)
+        .catch(this.errR);
+    },
+      },
+    })
 </script>

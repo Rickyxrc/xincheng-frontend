@@ -2,7 +2,6 @@
   <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
   <el-table :data="tableData" :row-class-name="getClassName" style="width: 100%" v-loading="loading" @row-click="jump">
     <el-table-column prop="pid" label="PID" />
-
     <el-table-column prop="title" label="标题">
       <template #default="scope">
         {{ scope.row.title }}
@@ -35,7 +34,7 @@
   </el-table>
 </template>
 
-<style scoped>
+<style>
 a {
   color: rgb(58, 143, 255);
   text-decoration: none;
