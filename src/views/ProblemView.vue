@@ -5,7 +5,7 @@
   <el-row :gutter="20" v-loading="loading">
     <el-col :span="18">
       <el-card>
-        <el-container v-html="problem.html">
+        <el-container v-html="problem.html" style="display:block;">
         </el-container>
       </el-card>
     </el-col>
