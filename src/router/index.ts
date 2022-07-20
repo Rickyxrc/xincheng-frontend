@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/problems/XC:pid/edit",
     props: true,
     name: "editproblem",
-    component: () => import("../views/editProblem.vue")
+    component: () => import("../views/EditProblem.vue")
   },
   {
     path: "/problems/list/",
