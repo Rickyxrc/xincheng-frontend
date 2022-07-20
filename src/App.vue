@@ -52,7 +52,7 @@ export default defineComponent({
   },
   setup() {
     store.commit('setSession', localStorage.getItem('session'));
-    store.commit('setUser', JSON.parse(localStorage.getItem('user')) );
+    store.commit('setUser', JSON.parse(localStorage.getItem('user') as string));
   }
   ,
   components: {

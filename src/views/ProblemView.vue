@@ -5,7 +5,7 @@
 
   <el-card style="margin-bottom:20px;" v-if="permission>0">
     请始终记住，权力越大，责任越大！<br>
-    <router-link :to="'/problems/XC'+this.$props.pid+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link>
+    <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link>
   </el-card>
   <el-row :gutter="20">
     <el-col :span="18" v-loading="loading">
@@ -35,7 +35,12 @@ import post from "axios";
 import store from "../store";
 
 export default defineComponent({
-  props: ["pid"],
+  props: {
+    pid: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     back() {
       router.go(-1);
