@@ -51,9 +51,10 @@
 </style>
 
 <script lang="ts">
-import { ElNotification, ElLoading } from "element-plus";
+import { ElNotification } from "element-plus";
 import { defineComponent } from "vue";
 import post from "axios";
+import store from "../store";
 
 export default defineComponent({
   data: () => {
@@ -76,17 +77,36 @@ export default defineComponent({
       })
         .then((data: any) => {
           this.loading = false;
+          store.commit("setSession", data.data.session);
           if (data.data.success != true)
             ElNotification.error({
               title: "登录失败",
               message: "用户不存在或密码错误",
             });
-          else
-            ElNotification.success({
-              title: "登录成功",
-              message: "欢迎来到新成OJ!",
-            });
-          this.$emit("transfer",data.data.session);
+          else {
+            post("https://service-c31wcqnb-1306888085.cd.apigw.tencentcs.com/users/getsession", {
+              params: {
+                session: data.data.session,
+              }
+            })
+              .then((data: any) => {
+                if (data.data.success == true) {
+                  store.commit("setUser", data.data.data);
+                  this.$emit("transfer");
+                  ElNotification.success({
+                    title: "登录成功",
+                    message: "欢迎来到新成OJ!",
+                  });
+                  // this.username = data.data.data.username;
+                  // this.mail = data.data.data.mail;
+                  // this.permission = data.data.data.permission;
+                  // this.tag = data.data.data.tag;
+                  // this.color = data.data.data.color;
+                }
+                else
+                  throw "ERR";
+              });
+          }
         })
         .catch((err: any) => {
           this.loading = false;

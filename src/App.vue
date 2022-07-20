@@ -1,18 +1,18 @@
 <template>
   <keep-alive>
     <div class="common-layout" v-if="show">
-      <template v-if="api_valid()">
-        <login-view @transfer="setcookie"></login-view>
+      <template v-if="!api_valid()">
+        <login-view @transfer="flush"></login-view>
       </template>
       <el-container v-else>
         <el-header>
-          <top-bar class="top" @logout="clearcookie"></top-bar>
+          <top-bar class="top" @logout="clearcookie" style="height:8vh;"></top-bar>
         </el-header>
         <el-container>
-          <el-aside>
+          <el-aside class="hidden-md-and-down">
             <menu-bar></menu-bar>
           </el-aside>
-          <el-main>
+          <el-main style="max-height:92vh;overflow-y: scroll;">
             <router-view></router-view>
           </el-main>
         </el-container>
@@ -21,7 +21,7 @@
   </keep-alive>
 </template>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif");
 * {
   font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
@@ -31,6 +31,10 @@
   background-color: var(--el-color-primary-light-7);
   color: var(--el-text-color-primary);
 }
+
+body{
+  overflow: hidden;
+}
 </style>
 
 <script lang="ts">
@@ -38,6 +42,7 @@ import { defineComponent } from "vue";
 import MenuBar from "./components/MenuBar.vue";
 import TopBar from "./components/TopBar.vue";
 import LoginView from "./views/LoginView.vue";
+import store from "./store";
 
 export default defineComponent({
   data: () => {
@@ -45,6 +50,11 @@ export default defineComponent({
       show: true,
     }
   },
+  setup() {
+    store.commit('setSession', localStorage.getItem('session'));
+    store.commit('setUser', localStorage.getItem('session'));
+  }
+  ,
   components: {
     MenuBar,
     TopBar,
@@ -52,26 +62,28 @@ export default defineComponent({
   },
   methods: {
     api_valid() {
-      let cookie = this.$cookies.get('api_key');
-      if ((cookie != '') && (cookie != undefined) && (cookie != 'undefined'))
+      let session = store.state.session;
+      console.log('session =[' + session + ']');
+      // let cookie = this.$cookies.get('api_key');
+      if ((session == null) || (session == '') || (session == undefined) || (session == 'undefined')) {
+        console.log('invalid');
         return false;
-      else
+      }
+      else {
+        console.log('valid');
         return true;
+      }
     },
-    setcookie(dat: any) {
-      this.$cookies.set('api_key', dat);
-      this.show = false
+    flush() {
+      this.show = false;
       this.$nextTick(() => {
-        this.show = true
+        this.show = true;
       })
     },
     clearcookie() {
-      this.$cookies.remove('api_key');
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
-
+      store.commit('setSession');
+      store.commit('setUser');
+      this.flush();
     }
   }
 });

@@ -1,16 +1,19 @@
-# Vue 3 + TypeScript + Vite
+Xincheng-frontend
+请注意,本项目遵循 MIT 许可证协议.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Please note that this project is under the MIT license.
 
-## Recommended IDE Setup
+项目描述 Project description
+新成 OJ 是我们为成都市新津区成外学校编写的在线评测系统.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+Xincheng OJ is an online judge system written by us for Chengdu Foreign Language School, Xinjin.
 
-## Type Support For `.vue` Imports in TS
+What is Online Judge
+在线评测系统（Online Judge,OJ）是一种在编程竞赛中用来评测参赛程序的在线系统,也可以用于平时练习.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+Online Judge (OJ) is an online system used to evaluate participating programs in programming competitions, and can also be used for daily practice.
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+如何安装该项目 How to install this project
+yarn && yarn dev
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+Written by Xincheng Dev Team

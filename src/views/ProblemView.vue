@@ -2,14 +2,19 @@
   <el-card style="margin-bottom:20px;" v-loading="loading">
     <el-page-header :content="problem.title" @back="back" />
   </el-card>
-  <el-row :gutter="20" v-loading="loading">
-    <el-col :span="18">
+  <!-- {{permission}}
+  <el-card style="margin-bottom:20px;" v-if="permission>0"> -->
+    <!-- admin    -->
+  <!-- </el-card> -->
+  <el-row :gutter="20">
+    <el-col :span="18" v-loading="loading">
       <el-card>
-        <el-container v-html="problem.html" style="display:block;">
-        </el-container>
+        <v-md-preview :text="problem.html"></v-md-preview>
+        <!-- <el-container v-html="problem.html" style="display:block;"> -->
+        <!-- </el-container> -->
       </el-card>
     </el-col>
-    <el-col :span="6">
+    <el-col :span="6" v-loading="loading">
       <el-card>
         <el-form>
           <el-form-item label="题目名称"><span>{{ problem.title }}</span></el-form-item>
@@ -25,6 +30,7 @@ import { defineComponent } from "vue";
 import router from "../router/index";
 import { marked } from 'marked';
 import post from "axios";
+import store from "../store";
 
 export default defineComponent({
   props: ["pid"],
@@ -36,14 +42,12 @@ export default defineComponent({
       post('https://service-c31wcqnb-1306888085.cd.apigw.tencentcs.com/problems/get', {
         params: {
           pid: this.$props.pid,
-          session: document.cookie.split('=')[1]
+          session: store.state.session
         },
       })
         .then((data: any) => {
-          console.log(data.data.data.context);
-          // return data.data;
           this.problem.title = data.data.data.title;
-          this.problem.html = marked(data.data.data.context);
+          this.problem.html = marked(data.data.data.content);
           this.loading = false;
         });
     },
@@ -59,5 +63,9 @@ export default defineComponent({
       tmp: this.getProblem(),
     };
   },
+  setup() {
+    var permission = store.state.permission;
+    console.log('pers',store.state.permission);
+  }
 });
 </script>

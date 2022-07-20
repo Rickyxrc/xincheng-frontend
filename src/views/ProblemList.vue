@@ -1,7 +1,19 @@
 <template>
   <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
   <el-table :data="tableData" :row-class-name="getClassName" style="width: 100%" v-loading="loading" @row-click="jump">
-    <el-table-column prop="pid" label="PID" />
+      <el-table-column prop="pid" label="PID" width="180" />
+      <el-table-column prop="score" label="分数" width="180">
+      <template #default="scope">
+        <span class="ml-2" v-if="scope.row.score <= 20" style="color: var(--el-color-danger-light-3)">{{ scope.row.score
+        }}</span>
+        <span class="ml-2" v-else-if="scope.row.score < 100" style="color: var(--el-color-warning-light-3)">{{
+            scope.row.score
+        }}</span>
+        <span class="ml-2" v-else-if="scope.row.score == 100" style="color: var(--el-color-success-light-3)">{{
+            scope.row.score
+        }}</span>
+      </template>
+    </el-table-column>
     <el-table-column prop="title" label="标题">
       <template #default="scope">
         {{ scope.row.title }}
@@ -19,18 +31,7 @@
         </template>
       </template>
     </el-table-column>
-    <el-table-column prop="score" label="分数">
-      <template #default="scope">
-        <span class="ml-2" v-if="scope.row.score <= 20" style="color: var(--el-color-danger-light-3)">{{ scope.row.score
-        }}</span>
-        <span class="ml-2" v-else-if="scope.row.score < 100" style="color: var(--el-color-warning-light-3)">{{
-            scope.row.score
-        }}</span>
-        <span class="ml-2" v-else-if="scope.row.score == 100" style="color: var(--el-color-success-light-3)">{{
-            scope.row.score
-        }}</span>
-      </template>
-    </el-table-column>
+    
   </el-table>
 </template>
 
@@ -54,6 +55,7 @@ import { ElNotification } from "element-plus";
 import { defineComponent } from "vue";
 import router from "../router";
 import post from "axios";
+import store from "../store";
 
 export default defineComponent({
   data() {
@@ -69,7 +71,7 @@ export default defineComponent({
       post("https://service-c31wcqnb-1306888085.cd.apigw.tencentcs.com/problems/list", {
         params: {
           data: this.searchBoxContent,
-          session: document.cookie.split('=')[1]
+          session: store.state.session
         },
       })
         .then((data: any) => {
