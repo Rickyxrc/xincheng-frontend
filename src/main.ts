@@ -23,7 +23,7 @@ VMdPreview.use(githubTheme, {
 VMdPreview.use(createKatexPlugin());
 
 import ElementPlus from 'element-plus';
-import 'Element-plus/dist/index.css';
+import 'element-plus/dist/index.css';
 import 'element-plus/theme-chalk/display.css'
 
 const app = createApp(App)
