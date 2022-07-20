@@ -2,14 +2,16 @@
   <el-card style="margin-bottom:20px;" v-loading="loading">
     <el-page-header :content="problem.title" @back="back" />
   </el-card>
-  <!-- {{permission}}
-  <el-card style="margin-bottom:20px;" v-if="permission>0"> -->
-    <!-- admin    -->
-  <!-- </el-card> -->
+
+  <el-card style="margin-bottom:20px;" v-if="permission>0">
+    请始终记住，权力越大，责任越大！<br>
+    <router-link :to="'/problems/XC'+this.$props.pid+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link>
+  </el-card>
   <el-row :gutter="20">
     <el-col :span="18" v-loading="loading">
       <el-card>
-        <v-md-preview :text="problem.html"></v-md-preview>
+        <v-md-editor :model-value="problem.html" mode="preview"></v-md-editor>
+        <!-- <v-md-preview :text="problem.html"></v-md-preview> -->
         <!-- <el-container v-html="problem.html" style="display:block;"> -->
         <!-- </el-container> -->
       </el-card>
@@ -47,7 +49,7 @@ export default defineComponent({
       })
         .then((data: any) => {
           this.problem.title = data.data.data.title;
-          this.problem.html = marked(data.data.data.content);
+          this.problem.html = data.data.data.content;
           this.loading = false;
         });
     },
@@ -55,6 +57,7 @@ export default defineComponent({
   data() {
     return {
       loading:true,
+      permission : store.state.permission,
       problem: {
         title: '',
         score: 0,
@@ -64,7 +67,6 @@ export default defineComponent({
     };
   },
   setup() {
-    var permission = store.state.permission;
     console.log('pers',store.state.permission);
   }
 });

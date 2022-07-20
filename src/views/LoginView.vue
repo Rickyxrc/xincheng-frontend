@@ -91,6 +91,7 @@ export default defineComponent({
             })
               .then((data: any) => {
                 if (data.data.success == true) {
+                  console.log(data.data.data.permission);
                   store.commit("setUser", data.data.data);
                   this.$emit("transfer");
                   ElNotification.success({
