@@ -17,7 +17,8 @@
             <menu-bar></menu-bar>
           </el-aside>
           <el-main style="max-height: 92vh; overflow-y: scroll">
-            <router-view></router-view>
+          <el-scrollbar>
+            <router-view></router-view></el-scrollbar>
           </el-main>
         </el-container>
       </el-container>
