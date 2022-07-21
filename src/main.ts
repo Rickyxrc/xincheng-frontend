@@ -6,9 +6,9 @@ import store from "./store";
 
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import VueMarkdownEditor from '@kangc/v-md-editor';
-import '@kangc/v-md-editor/lib/style/base-editor.css';
+// import '@kangc/v-md-editor/lib/style/base-editor.css'; cdn
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
-import '@kangc/v-md-editor/lib/theme/style/github.css';
+// import '@kangc/v-md-editor/lib/theme/style/github.css'; cdn
 import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
 import hljs from 'highlight.js';
@@ -20,10 +20,8 @@ VueMarkdownEditor.use(githubTheme, {
 VueMarkdownEditor.use(createKatexPlugin());
 
 import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-import 'element-plus/theme-chalk/display.css'
-
-import 'katex/dist/katex.min.css';
+// import 'element-plus/dist/index.css'; cdn
+// import 'element-plus/theme-chalk/display.css' cdn
 
 const app = createApp(App)
     .use(VueCookies)
