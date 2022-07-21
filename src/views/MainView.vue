@@ -6,9 +6,9 @@
   />
   <br />
   <el-alert
-    title="我们刚刚进行了一<span>堆</span>更新"
+    title="我们刚刚进行了一次更新"
     type="success"
-    description="upd 2022/7/20 更改登录逻辑"
+    description="upd 2022/7/21 题目可以分页"
   />
   <br />
   <el-button type="danger" plain @click="open">真的 不要点我</el-button>
