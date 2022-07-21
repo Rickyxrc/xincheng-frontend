@@ -7,13 +7,10 @@
         <el-avatar :src="src" />
       </template>
       <template #default>
-        <div
-          style="display: flex; gap: 16px; flex-direction: column">
+        <div style="display: flex; gap: 16px; flex-direction: column">
           <el-avatar shape="square" :src="src" />
           <div>
-            <p style="margin: 0; font-weight: 500">
-              Rickyxrc
-            </p>
+            <p style="margin: 0; font-weight: 500">Rickyxrc</p>
             <p style="margin: 0; font-size: 14px; color: var(--el-color-info)">
               @新成OJ
             </p>

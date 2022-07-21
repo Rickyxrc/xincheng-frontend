@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import router from '../router/index';
+import { defineComponent } from "vue";
+import router from "../router/index";
 
 export default defineComponent({
   methods: {
     goback() {
       router.go(-1);
-    }
-  }
-})
+    },
+  },
+});
 </script>

@@ -1,31 +1,32 @@
 <template>
-  <el-card style="margin-bottom: 20px" v-loading="loading">
-    <el-page-header :content="'编辑题目 ' + problem.title" @back="back" />
-  </el-card>
-  <el-col :span="24">
-    <v-md-editor v-model="problem.html" height="400px"></v-md-editor>
-    <el-button type="primary" @click="submit" setle="margin-top:1rem;">提交</el-button>
-    <!-- <el-card>
-        <el-row>
-            <el-col :span="12">
-                <el-input
-                    autosize
-                    v-model="problem.html"        
-                    type="textarea"
-                    placeholder="请输入题目正文"
-                />
-            </el-col>
-            <el-col :span="12">
-                <el-container
-                    style="display:block;padding-left:2rem;"
-                    :span="12"
-                    v-html="render()"
-                />
-            </el-col>
-            <el-col><el-button type="primary" @click="submit">提交</el-button></el-col>
-        </el-row>
-      </el-card> -->
-  </el-col>
+  <el-space
+    fill="true"
+    direction="vertical"
+    alignment="start"
+    :size="16"
+    style="width: 100%"
+  >
+    <el-card v-loading="loading">
+      <el-page-header :content="'编辑题目 ' + problem.title" @back="back" />
+    </el-card>
+    <el-card>
+      <el-form :model="problem" label-width="120px">
+        <el-form-item label="标题">
+          <el-input v-model="problem.title" />
+        </el-form-item>
+        <el-form-item label="题目难度">
+          <el-input v-model="problem.difficulty" />
+        </el-form-item>
+        <el-form-item label="激活">
+          <el-switch v-model="problem.active" />
+        </el-form-item>
+      </el-form>
+    </el-card>
+    <v-md-editor v-model="problem.html"></v-md-editor>
+    <el-button type="primary" @click="submit" setle="margin-top:1rem;"
+      >提交</el-button
+    >
+  </el-space>
 </template>
 
 <script lang="ts">
@@ -44,7 +45,7 @@ export default defineComponent({
     },
     getProblem() {
       post(
-        "https://service-c31wcqnb-1306888085.cd.apigw.tencentcs.com/problems/get",
+        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/get",
         {
           params: {
             pid: this.$props.pid,
@@ -52,10 +53,11 @@ export default defineComponent({
           },
         }
       ).then((data: any) => {
-        // console.log(data.data.data.content);
         // return data.data;
         this.problem.title = data.data.data.title;
         this.problem.html = data.data.data.content;
+        this.problem.difficulty = data.data.data.difficulty;
+        this.problem.active = data.data.data.active;
         this.loading = false;
       });
     },
@@ -64,17 +66,19 @@ export default defineComponent({
     },
     submit() {
       post(
-        "https://service-c31wcqnb-1306888085.cd.apigw.tencentcs.com/problems/edit",
+        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/new",
         {
           params: {
             pid: this.$props.pid,
             content: this.problem.html,
             session: store.state.session,
+            title: this.problem.title,
+            difficulty: this.problem.difficulty,
+            active: this.problem.active ? 1 : 0,
           },
         }
       )
         .then((data: any) => {
-          // console.log(data.data.data.content);
           // return data.data;
           this.loading = false;
           if (data.data.success) {
@@ -82,16 +86,14 @@ export default defineComponent({
               title: "Success",
               message: "题目保存成功",
             });
-          }
-          else {
+          } else {
             ElNotification.error({
-            title: "Network error",
-            message: "网络错误，请再试一次",
-          });
+              title: "Network error",
+              message: "网络错误，请再试一次",
+            });
           }
         })
         .catch((err) => {
-          console.log(err);
           ElNotification.error({
             title: "Network error",
             message: "网络错误，请再试一次",
@@ -102,14 +104,19 @@ export default defineComponent({
   data() {
     return {
       loading: true,
-      preview: "edit",
       problem: {
         title: "",
-        score: 0,
         html: "",
+        difficulty: -1,
+        active: false,
       },
       tmp: this.getProblem(),
     };
   },
+  setup() {
+    if (store.state.permission < 1) {
+      router.go(-1);
+    }
+  }
 });
 </script>

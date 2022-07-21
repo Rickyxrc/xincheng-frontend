@@ -16,7 +16,6 @@ export default createStore({
       if (user == null || user == undefined) {
         return;
       }
-      console.log("here");
       localStorage.setItem('user', JSON.stringify(user));
       
       state.username = user.username;

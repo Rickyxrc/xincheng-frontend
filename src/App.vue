@@ -6,13 +6,17 @@
       </template>
       <el-container v-else>
         <el-header>
-          <top-bar class="top" @logout="clearcookie" style="height:8vh;"></top-bar>
+          <top-bar
+            class="top"
+            @logout="clearcookie"
+            style="height: 8vh"
+          ></top-bar>
         </el-header>
         <el-container>
           <el-aside class="hidden-md-and-down">
             <menu-bar></menu-bar>
           </el-aside>
-          <el-main style="max-height:92vh;overflow-y: scroll;">
+          <el-main style="max-height: 92vh; overflow-y: scroll">
             <router-view></router-view>
           </el-main>
         </el-container>
@@ -32,7 +36,9 @@
   color: var(--el-text-color-primary);
 }
 
-body{
+body {
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 </style>
@@ -48,13 +54,12 @@ export default defineComponent({
   data: () => {
     return {
       show: true,
-    }
+    };
   },
   setup() {
-    store.commit('setSession', localStorage.getItem('session'));
-    store.commit('setUser', JSON.parse(localStorage.getItem('user') as string));
-  }
-  ,
+    store.commit("setSession", localStorage.getItem("session"));
+    store.commit("setUser", JSON.parse(localStorage.getItem("user") as string));
+  },
   components: {
     MenuBar,
     TopBar,
@@ -63,29 +68,27 @@ export default defineComponent({
   methods: {
     api_valid() {
       let session = store.state.session;
-      console.log('session =[' + session + ']');
       // let cookie = this.$cookies.get('api_key');
-      if ((session == null) || (session == '') || (session == undefined) || (session == 'undefined')) {
-        console.log('invalid');
+      if (
+        session == null ||
+        session == "" ||
+        session == undefined ||
+        session == "undefined"
+      )
         return false;
-      }
-      else {
-        console.log('valid');
-        return true;
-      }
+      else return true;
     },
     flush() {
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
-      })
+      });
     },
     clearcookie() {
-      store.commit('setSession');
-      store.commit('setUser');
+      store.commit("setSession");
+      store.commit("setUser");
       this.flush();
-    }
-  }
+    },
+  },
 });
-
 </script>
