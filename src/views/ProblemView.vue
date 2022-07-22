@@ -6,29 +6,29 @@
     :size="16"
     style="width: 100%"
   >
-    <el-card v-loading="loading">
+    <el-card shadow="hover" v-loading="loading">
       <el-page-header :content="problem.title" @back="back" />
     </el-card>
-
-    <el-card v-if="permission > 0">
+    <el-card shadow="hover" v-if="permission > 0">
       “权力越大，责任越大。”<br />
       <router-link
         :to="'/problems/XC' + pid + '/edit'"
         style="text-decoration: none"
-        ><el-button type="primary" link>编辑</el-button></router-link
-      >
+        >
+        <el-button class="hidden-sm-and-down" type="primary" link>编辑</el-button></router-link>
+        <el-button class="hidden-md-and-up" type="primary" link>大哥，移动设备上别改题目了，我都没您敬业</el-button>
     </el-card>
-    <el-row :gutter="20">
-      <el-col :span="18" v-loading="loading">
-        <el-card>
+    <el-row :gutter="16">
+      <el-col :md="18" :sm="24" v-loading="loading">
+        <el-card shadow="hover">
           <v-md-editor :model-value="problem.html" mode="preview"></v-md-editor>
           <!-- <v-md-preview :text="problem.html"></v-md-preview> -->
           <!-- <el-container v-html="problem.html" style="display:block;"> -->
           <!-- </el-container> -->
         </el-card>
       </el-col>
-      <el-col :span="6" v-loading="loading">
-        <el-card>
+      <el-col :md="6" :sm="24" v-loading="loading" style="margin-top:16px;">
+        <el-card shadow="hover">
           <el-form>
             <el-form-item label="题目名称"
               ><span>{{ problem.title }}</span></el-form-item
@@ -87,7 +87,6 @@ export default defineComponent({
       tmp: this.getProblem(),
     };
   },
-  setup() {
-  },
+  setup() {},
 });
 </script>

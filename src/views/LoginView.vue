@@ -2,7 +2,7 @@
   <div class="fullscreen">
     <el-row justify="center">
       <el-col span="6" md="8" sm="12" style="margin-top: 12vh">
-        <el-card class="box-card blurin">
+        <el-card shadow="hover" class="box-card blurin">
           <template #header>
             <div class="card-header">
               <el-form :model="userinfo" v-loading="loading">

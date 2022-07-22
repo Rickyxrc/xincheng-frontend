@@ -8,7 +8,7 @@
   <el-alert
     title="我们刚刚进行了一次更新"
     type="success"
-    description="upd 2022/7/21 题目可以分页"
+    description="upd 2022/7/22 新成OJ支持移动端！"
   />
   <br />
   <el-button type="danger" plain @click="open">真的 不要点我</el-button>

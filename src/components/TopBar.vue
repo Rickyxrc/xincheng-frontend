@@ -1,6 +1,12 @@
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
-    <el-menu-item>新成OJ</el-menu-item>
+    <!-- <el-button :icon="Menu" circle /> -->
+    <span style="display:flex;align-items:center;font-size: 1.2rem;">
+      <el-icon class="hidden-md-and-up" size="1.2rem" color="#409eff" @click="expend">
+        <menu-icon />
+      </el-icon>
+      <router-link to="/" style="color:#409eff;text-decoration:none;">新成OJ</router-link>
+    </span>
     <div class="flex-grow" />
     <el-popover placement="left" trigger="hover" content="content">
       <template #reference>
@@ -15,7 +21,6 @@
               @新成OJ
             </p>
           </div>
-
           <p style="margin: 0">
             <el-button type="primary" plain @click="logout()">登出</el-button>
           </p>
@@ -24,6 +29,12 @@
     </el-popover>
   </el-menu>
 </template>
+
+<script lang="ts" setup>
+import {
+  Menu as MenuIcon,
+} from '@element-plus/icons-vue'
+</script>
 
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -39,6 +50,9 @@ export default defineComponent({
     logout() {
       this.$emit("logout");
     },
+    expend() {
+      this.$emit("expend");
+    }
   },
 });
 </script>

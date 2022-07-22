@@ -7,7 +7,7 @@
     style="width: 100%"
   >
     <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
-    <el-card style="margin-bottom: 20px" v-if="permission > 0">
+    <el-card shadow="hover" style="margin-bottom: 20px" v-if="permission > 0">
       新建题目
       <!-- <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link> -->
     </el-card>
@@ -18,8 +18,8 @@
       v-loading="loading"
       @row-click="jump"
     >
-      <el-table-column prop="pid" label="PID" width="180" />
-      <el-table-column prop="score" label="分数" width="180">
+      <el-table-column prop="pid" label="PID"/>
+      <el-table-column prop="score" label="分数">
         <template #default="scope">
           <span
             class="ml-2"
@@ -118,9 +118,9 @@ export default defineComponent({
         "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/list",
         {
           params: {
-            page: this.pagenow,
-            limit: this.limit,
-            data: this.searchBoxContent,
+            page: this.pagenow || 1,
+            limit: this.limit || 10,
+            data: this.searchBoxContent || "",
             session: store.state.session,
           },
         }

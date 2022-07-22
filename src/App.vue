@@ -9,16 +9,19 @@
           <top-bar
             class="top"
             @logout="clearcookie"
+            @expend="openlbar"
             style="height: 8vh"
           ></top-bar>
         </el-header>
         <el-container>
-          <el-aside class="hidden-md-and-down">
+          <portable-bar class="hidden-md-and-up" v-model:open="drawer" @close="closelbar"></portable-bar>
+          <el-aside class="hidden-md-and-down" style="width:20vw;">
             <menu-bar></menu-bar>
           </el-aside>
-          <el-main style="max-height: 92vh; overflow-y: scroll">
-          <el-scrollbar>
-            <router-view></router-view></el-scrollbar>
+          <el-main style="max-height: 92vh; overflow: hidden;padding-top:0;">
+            <el-scrollbar>
+              <router-view style="overflow-x: hidden;margin-top:1rem;"></router-view>
+            </el-scrollbar>
           </el-main>
         </el-container>
       </el-container>
@@ -50,11 +53,13 @@ import MenuBar from "./components/MenuBar.vue";
 import TopBar from "./components/TopBar.vue";
 import LoginView from "./views/LoginView.vue";
 import store from "./store";
+import PortableBar from "./components/PortableBar.vue";
 
 export default defineComponent({
   data: () => {
     return {
       show: true,
+      drawer: false
     };
   },
   setup() {
@@ -65,7 +70,8 @@ export default defineComponent({
     MenuBar,
     TopBar,
     LoginView,
-  },
+    PortableBar
+},
   methods: {
     api_valid() {
       let session = store.state.session;
@@ -90,6 +96,12 @@ export default defineComponent({
       store.commit("setUser");
       this.flush();
     },
+    openlbar() {
+      this.drawer = true;
+    },
+    closelbar() {
+      this.drawer = false;
+    }
   },
 });
 </script>

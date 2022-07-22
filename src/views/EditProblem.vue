@@ -1,15 +1,16 @@
 <template>
   <el-space
+    class="hidden-sm-and-down"
     fill="true"
     direction="vertical"
     alignment="start"
     :size="16"
     style="width: 100%"
   >
-    <el-card v-loading="loading">
+    <el-card shadow="hover" v-loading="loading">
       <el-page-header :content="'编辑题目 ' + problem.title" @back="back" />
     </el-card>
-    <el-card>
+    <el-card shadow="hover">
       <el-form :model="problem" label-width="120px">
         <el-form-item label="标题">
           <el-input v-model="problem.title" />
@@ -27,6 +28,7 @@
       >提交</el-button
     >
   </el-space>
+  <el-button class="hidden-md-and-up" type="primary" link>你还非要点进来！？不可能！</el-button>
 </template>
 
 <script lang="ts">
