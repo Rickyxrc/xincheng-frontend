@@ -25,7 +25,7 @@
         <el-alert
           title="我们刚刚进行了一次更新"
           type="success"
-          description="upd 2022/7/22 新成OJ支持移动端！"
+          description="upd 2022/7/23 支持提交题目."
         />
       </el-col>
       <!-- <el-col :span="6">
