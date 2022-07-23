@@ -1,5 +1,5 @@
 <template>
-  <el-menu :collapse="false" router="true">
+  <el-menu :collapse="false" :router="true">
     <el-menu-item index="/">
       <el-icon>
         <icon-home />
@@ -25,9 +25,8 @@
 import {
   HomeFilled as IconHome,
   Expand as IconList,
-} from '@element-plus/icons-vue'
+} from "@element-plus/icons-vue";
 </script>
-
 
 <script lang="ts">
 import { defineComponent } from "vue";

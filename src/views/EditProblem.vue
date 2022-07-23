@@ -1,7 +1,7 @@
 <template>
   <el-space
     class="hidden-sm-and-down"
-    fill="true"
+    :fill="true"
     direction="vertical"
     alignment="start"
     :size="16"
@@ -28,7 +28,9 @@
       >提交</el-button
     >
   </el-space>
-  <el-button class="hidden-md-and-up" type="primary" link>你还非要点进来！？不可能！</el-button>
+  <el-button class="hidden-md-and-up" type="primary" link
+    >你还非要点进来！？不可能！</el-button
+  >
 </template>
 
 <script lang="ts">
@@ -119,6 +121,6 @@ export default defineComponent({
     if (store.state.permission < 1) {
       router.go(-1);
     }
-  }
+  },
 });
 </script>

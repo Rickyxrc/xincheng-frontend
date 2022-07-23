@@ -1,35 +1,37 @@
 // import { createApp } from "vue";
-import { createApp } from 'vue';
-    
-import VueCookies from 'vue-cookies'
+import { createApp } from "vue";
+
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import VMdPreview from '@kangc/v-md-editor/lib/preview';
-import VueMarkdownEditor from '@kangc/v-md-editor';
-// import '@kangc/v-md-editor/lib/style/base-editor.css'; cdn
-import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
-// import '@kangc/v-md-editor/lib/theme/style/github.css'; cdn
-import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
+import VMdEditor from "@kangc/v-md-editor";
+import "@kangc/v-md-editor/lib/style/base-editor.css";
+import githubTheme from "@kangc/v-md-editor/lib/theme/github.js";
+import "@kangc/v-md-editor/lib/theme/style/github.css";
+import createKatexPlugin from "@kangc/v-md-editor/lib/plugins/katex/cdn";
 
-import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css'
+import cpp from 'highlight.js/lib/languages/cpp';
+// import 'highlight.js/styles/default.min.css'
 
+import hljs from "highlight.js";
+hljs.registerLanguage("cpp", cpp);
 
-VueMarkdownEditor.use(githubTheme, {
-    Hljs:hljs,
-});  
-VueMarkdownEditor.use(createKatexPlugin());
+VMdEditor.use(githubTheme, {
+  Hljs: hljs,
+});
+VMdEditor.use(createKatexPlugin());
 
-import ElementPlus from 'element-plus';
-// import 'element-plus/dist/index.css'; cdn
-// import 'element-plus/theme-chalk/display.css' cdn
+// import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/display.css";
 
-const app = createApp(App)
-    .use(VueCookies)
-    .use(ElementPlus)
-    .use(VueMarkdownEditor)
-    .use(VMdPreview)
-    .use(store)
-    .use(router)
-    .mount("#app");
+const app = createApp(App);
+app.directive("highlight", function (el) {
+  const blocks = el.querySelectorAll("pre code");
+  blocks.forEach((block: any) => {
+    hljs.highlightBlock(block);
+  });
+});
+app.use(VMdEditor).use(store).use(router).mount("#app");

@@ -14,13 +14,19 @@
           ></top-bar>
         </el-header>
         <el-container>
-          <portable-bar class="hidden-md-and-up" v-model:open="drawer" @close="closelbar"></portable-bar>
-          <el-aside class="hidden-md-and-down" style="width:20vw;">
+          <portable-bar
+            class="hidden-md-and-up"
+            v-model:open="drawer"
+            @close="closelbar"
+          ></portable-bar>
+          <el-aside class="hidden-md-and-down" style="width: 20vw">
             <menu-bar></menu-bar>
           </el-aside>
-          <el-main style="max-height: 92vh; overflow: hidden;padding-top:0;">
+          <el-main style="max-height: 92vh; overflow: hidden; padding-top: 0">
             <el-scrollbar>
-              <router-view style="overflow-x: hidden;margin-top:1rem;"></router-view>
+              <router-view
+                style="overflow-x: hidden; margin-top: 1rem"
+              ></router-view>
             </el-scrollbar>
           </el-main>
         </el-container>
@@ -30,7 +36,7 @@
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif");
+@import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif|Fira+Code");
 * {
   font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
@@ -59,7 +65,7 @@ export default defineComponent({
   data: () => {
     return {
       show: true,
-      drawer: false
+      drawer: false,
     };
   },
   setup() {
@@ -70,8 +76,8 @@ export default defineComponent({
     MenuBar,
     TopBar,
     LoginView,
-    PortableBar
-},
+    PortableBar,
+  },
   methods: {
     api_valid() {
       let session = store.state.session;
@@ -101,7 +107,7 @@ export default defineComponent({
     },
     closelbar() {
       this.drawer = false;
-    }
+    },
   },
 });
 </script>

@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import axios from "axios";
 
 export default createStore({
   state: {
@@ -16,8 +15,8 @@ export default createStore({
       if (user == null || user == undefined) {
         return;
       }
-      localStorage.setItem('user', JSON.stringify(user));
-      
+      localStorage.setItem("user", JSON.stringify(user));
+
       state.username = user.username;
       state.permission = user.permission;
       state.mail = user.mail;
@@ -25,9 +24,9 @@ export default createStore({
       state.color = user.color;
     },
     setSession(state, session) {
-      localStorage.setItem('session', session);
+      localStorage.setItem("session", session);
       state.session = session;
-    }
+    },
   },
   actions: {},
   modules: {},

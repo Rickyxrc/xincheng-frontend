@@ -1,6 +1,6 @@
 <template>
   <el-space
-    fill="true"
+    :fill="true"
     direction="vertical"
     alignment="start"
     :size="16"
@@ -18,7 +18,7 @@
       v-loading="loading"
       @row-click="jump"
     >
-      <el-table-column prop="pid" label="PID"/>
+      <el-table-column prop="pid" label="PID" />
       <el-table-column prop="score" label="分数">
         <template #default="scope">
           <span
@@ -70,11 +70,11 @@
       </el-table-column>
     </el-table>
     <el-pagination
-    v-model:currentPage="pagenow"
-    v-model:page-size="limit"
-    layout="prev, pager, next"
-    :total="1075"
-  />
+      v-model:currentPage="pagenow"
+      v-model:page-size="limit"
+      layout="prev, pager, next"
+      :total="1075"
+    />
   </el-space>
 </template>
 
@@ -103,8 +103,8 @@ import store from "../store";
 export default defineComponent({
   data() {
     return {
-      pagenow:1,
-      limit:10,
+      pagenow: 1,
+      limit: 10,
       permission: store.state.permission,
       loading: true,
       searchBoxContent: "",
@@ -133,7 +133,7 @@ export default defineComponent({
           ElNotification.error({
             title: "网络错误",
             message: "网络错误，请再试一次",
-            showClose: false,
+            
           });
         });
     },
@@ -151,7 +151,7 @@ export default defineComponent({
     },
     pagenow() {
       this.getData();
-    }
+    },
   },
 });
 </script>

@@ -1,33 +1,49 @@
 <template>
   <el-space
-    fill="true"
+    :fill="true"
     direction="vertical"
     alignment="start"
     :size="16"
     style="width: 100%"
   >
     <el-card shadow="hover" v-loading="loading">
-      <el-page-header :content="problem.title" @back="back" />
+      <el-page-header title="返回" @back="back">
+        <template #content>
+          {{ problem.title }}&nbsp;&nbsp;
+          <router-link
+            :to="'/problems/XC' + pid + '/submit'"
+            style="text-decoration: none"
+            >
+            <el-button class="hidden-sm-and-down" type="primary" link>
+            提交答案
+            </el-button>
+            </router-link
+          >
+        </template>
+      </el-page-header>
     </el-card>
     <el-card shadow="hover" v-if="permission > 0">
       “权力越大，责任越大。”<br />
       <router-link
         :to="'/problems/XC' + pid + '/edit'"
         style="text-decoration: none"
-        >
-        <el-button class="hidden-sm-and-down" type="primary" link>编辑</el-button></router-link>
-        <el-button class="hidden-md-and-up" type="primary" link>大哥，移动设备上别改题目了，我都没您敬业</el-button>
+      >
+        <el-button class="hidden-sm-and-down" type="primary" link
+          >编辑</el-button
+        ></router-link
+      >
+      <el-button class="hidden-md-and-up" type="primary" link
+        >大哥，移动设备上别改题目了，我都没您敬业</el-button
+      >
     </el-card>
     <el-row :gutter="16">
       <el-col :md="18" :sm="24" v-loading="loading">
         <el-card shadow="hover">
           <v-md-editor :model-value="problem.html" mode="preview"></v-md-editor>
-          <!-- <v-md-preview :text="problem.html"></v-md-preview> -->
-          <!-- <el-container v-html="problem.html" style="display:block;"> -->
-          <!-- </el-container> -->
         </el-card>
       </el-col>
-      <el-col :md="6" :sm="24" v-loading="loading" style="margin-top:16px;">
+      <el-col :sm="24" class="hidden-md-and-up" style="height: 16px"></el-col>
+      <el-col :md="6" :sm="24" v-loading="loading">
         <el-card shadow="hover">
           <el-form>
             <el-form-item label="题目名称"

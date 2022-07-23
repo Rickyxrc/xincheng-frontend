@@ -34,9 +34,9 @@
     >
     <div
       class="box-card blurin xc-box"
-      style="margin-top: 5vh; font-size: 0.75rem;"
+      style="margin-top: 5vh; font-size: 0.75rem"
     >
-      <div style="text-align: center;">“新成OJ，筑梦远航！”</div>
+      <div style="text-align: center">“新成OJ，筑梦远航！”</div>
       <div style="text-align: center">——Rickyxrc</div>
     </div>
   </div>
@@ -57,11 +57,11 @@
 
 .xc-box {
   position: fixed;
-  bottom:6rem;
+  bottom: 6rem;
   width: 100vw;
   opacity: 0.75;
   background: #ffffffdd;
-  padding:0.6rem;
+  padding: 0.6rem;
   backdrop-filter: blur(5px);
 }
 

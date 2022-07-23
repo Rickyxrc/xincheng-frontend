@@ -1,41 +1,22 @@
-import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import path from "path";
 
-// import importToCDN from "vite-plugin-cdn-import";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export default {
   plugins: [
     vue(),
-    // importToCDN({
-    //   modules: [
-    //     {
-    //       name: "vue",
-    //       var: "Vue",
-    //       path: `https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.runtime.global.prod.js`,
-    //     },
-    //     {
-    //       name: "element-plus",
-    //       var: "ElementPlus",
-    //       path: `https://cdnjs.cloudflare.com/ajax/libs/element-plus/2.2.9/index.full.min.js`
-    //     },
-    //     {
-    //       name: "vuex",
-    //       var: "createStore",
-    //       path: `https://cdnjs.cloudflare.com/ajax/libs/vuex/4.0.2/vuex.global.min.js`
-    //     },
-    //     {
-    //       name: "highlight.js",
-    //       var: "hljs",
-    //       path: ``
-    //     }
-    //   ],
-    // }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
   ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  build: {
+    rollupOptions: {
+      external: ["Vue", "Vuex", "VueRouter", "ElementPlus"],
     },
   },
-});
+};
