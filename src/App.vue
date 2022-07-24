@@ -38,7 +38,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif|Fira+Code");
 * {
-  font-family: "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
+  font-family: "Fira Code","PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
 .top .el-header {
   position: relative;

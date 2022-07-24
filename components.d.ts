@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     UserFull: typeof import('./src/components/UserFull.vue')['default']
+    UserLight: typeof import('./src/components/UserLight.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
