@@ -5,6 +5,9 @@
         <login-view @transfer="flush"></login-view>
       </template>
       <el-container v-else>
+        <!-- <div class="cl"> -->
+          <change-link @flush="flush" />
+        <!-- </div> -->
         <el-header>
           <top-bar
             class="top"
@@ -38,7 +41,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif|Fira+Code");
 * {
-  font-family: "Fira Code","PT Serif", "Noto Serif SC", Helvetica, sans-serif;
+  font-family: "Fira Code", "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
 .top .el-header {
   position: relative;
@@ -53,6 +56,12 @@ body {
 }
 </style>
 
+
+<script lang="ts" setup>
+store.commit("setSession", localStorage.getItem("session"));
+store.commit("setUser", JSON.parse(localStorage.getItem("user") as string));
+</script>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import MenuBar from "./components/MenuBar.vue";
@@ -60,18 +69,19 @@ import TopBar from "./components/TopBar.vue";
 import LoginView from "./views/LoginView.vue";
 import store from "./store";
 import PortableBar from "./components/PortableBar.vue";
+import router from "./router";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   data: () => {
     return {
+      href: window.location.href,
       show: true,
       drawer: false,
+      linkOpened: false,
     };
   },
-  setup() {
-    store.commit("setSession", localStorage.getItem("session"));
-    store.commit("setUser", JSON.parse(localStorage.getItem("user") as string));
-  },
+
   components: {
     MenuBar,
     TopBar,
@@ -79,6 +89,11 @@ export default defineComponent({
     PortableBar,
   },
   methods: {
+    gohref() {
+      // window.location.href = this.href;
+      // router.go(this.href);
+      router.push(this.href);
+    },
     api_valid() {
       let session = store.state.session;
       // let cookie = this.$cookies.get('api_key');
@@ -107,6 +122,11 @@ export default defineComponent({
     },
     closelbar() {
       this.drawer = false;
+    },
+    expend() {
+      console.log("OPEN");
+      this.linkOpened = true;
+      // this.$refs.changeHref.focus();
     },
   },
 });

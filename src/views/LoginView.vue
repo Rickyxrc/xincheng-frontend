@@ -13,7 +13,7 @@
                     placeholder="用户名或邮箱"
                   />
                 </el-form-item>
-                <el-form-item label="密码">
+                <el-form-item label="密码" @keyup.enter="getSession()">
                   <el-input
                     type="password"
                     v-model="userinfo.password"
@@ -119,7 +119,7 @@ export default defineComponent({
             });
           else {
             post(
-              "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/getsession",
+              "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/info",
               {
                 params: {
                   session: data.data.session,

@@ -27,13 +27,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<!-- <script lang="ts" setup>
-// import { ref } from 'vue'
-// import { ElMessageBox } from 'element-plus'
-
-// const drawer = ref(true)
-// const drawer2 = ref(false)
-// const direction = ref('ltr')
-// const radio1 = ref('Option 1')
-</script> -->

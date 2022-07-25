@@ -10,11 +10,12 @@
       >
         <menu-icon />
       </el-icon>
-      <router-link to="/" style="color: #409eff; text-decoration: none"
-        >新成OJ</router-link
-      >
+      <router-link to="/" style="color: #409eff; text-decoration: none">
+        新成OJ
+      </router-link>
     </span>
-    <div class="flex-grow"></div>
+    <div class="flex-grow">
+    </div>
     <el-popover placement="left" trigger="hover" content="content">
       <template #reference>
         <el-avatar :src="src" />
@@ -47,6 +48,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
+      input: window.location.href,
       src: "/head.png",
     };
   },

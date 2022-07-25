@@ -19,7 +19,7 @@
           >
         </el-page-header>
       </el-card>
-      <el-card>
+      <el-card v-loading="loading">
         <user-light :name="user.name" :col="user.col" :tag="user.tag"></user-light>
       </el-card>
       <el-card v-loading="loading">
