@@ -29,7 +29,7 @@
         <el-alert
           title="我们刚刚进行了一次更新"
           type="success"
-          description="upd 2022/7/23 支持提交题目."
+          description="upd 2022/7/25 可以快速更改链接."
         />
       </el-col>
       <el-col :span="6">
