@@ -6,9 +6,6 @@
 
 ## Uncomment to use this redirect for Single Page Applications
 ## Not needed for static site generators.
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/dist/sitemap.xml"
   status = 200
 [[redirects]]
   from = "/*"
