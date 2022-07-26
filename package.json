@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "mkdir dist && cp ./sitemap.xml ./dist/ && vue-tsc --noemit && vite build",
+    "build": "vue-tsc --noemit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
