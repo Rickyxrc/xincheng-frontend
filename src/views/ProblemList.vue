@@ -10,7 +10,7 @@
     <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
     <el-card shadow="hover" style="margin-bottom: 20px" v-if="permission > 0">
       新建题目
-      <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link>
+      <!-- <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link> -->
     </el-card>
     <el-table
       :data="tableData"
