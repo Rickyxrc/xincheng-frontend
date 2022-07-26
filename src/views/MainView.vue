@@ -15,26 +15,21 @@
         />
       </el-col>
       <el-col :span="24">
-        <el-alert
-          title="tips"
-          type="warning"
-        >
-        <template #default>
-          <div>新成OJ采用单页面应用形式，请尽量不要刷新页面(你要刷我们拦不住),下面那个链接可以快速改地址,按下ctrl+q也可以哦.</div>
-          <div>善用快捷键，不用刷新页面。</div>
-        </template>
+        <el-alert title="tips" type="warning">
+          <template #default>
+            <div>
+              新成OJ采用单页面应用形式，请尽量不要刷新页面(你要刷我们拦不住),下面那个链接可以快速改地址,按下ctrl+q也可以哦.
+            </div>
+            <div>善用快捷键，不用刷新页面。</div>
+          </template>
         </el-alert>
       </el-col>
       <el-col :span="24">
         <el-alert
           title="我们刚刚进行了一次更新"
           type="success"
-          description="upd 2022/7/25 可以快速更改链接."
+          description="upd 2022/7/26 优化了用户体验，我不说是啥，但是用起来一定很舒服."
         />
-      </el-col>
-      <el-col :span="6">
-        <el-button type="danger" plain @click="open">真的 不要点我</el-button>
-        <el-button type="success" plain @click="open">CLICK Me!</el-button>
       </el-col>
       <el-col :span="12">
         <user-full></user-full>
@@ -45,55 +40,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { ElNotification, ElMessage, ElMessageBox } from "element-plus";
 import UserFull from "../components/UserFull.vue";
 
 export default defineComponent({
   components: { UserFull },
   methods: {
-    errR() {
-      for (var i = 0; i < 20; i++) {
-        setTimeout(() => {
-          ElNotification.error({
-            title: "Network error",
-            message: "Request error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-            
-          });
-          ElNotification.error({
-            title: "Network error",
-            message: "Request error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-            
-            position: "bottom-right",
-          });
-          ElNotification.error({
-            title: "Network error",
-            message: "Request error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-            
-            position: "bottom-left",
-          });
-          ElNotification.error({
-            title: "Network error",
-            message: "Request error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-            
-            position: "top-left",
-          });
-          ElMessage.error({
-            message: "Request error: HTTPS/1.2 TLS/1.2 Handshake Failed",
-          });
-          ElMessage.warning({
-            message: "Request error: HTTPS/1.2 TLS/1.2 418 I'm a teapot",
-          });
-        }, i * 20);
-      }
-    },
-    open() {
-      window.onbeforeunload = this.errR;
-      ElMessageBox.alert("点击OK以登录", "请稍后", {
-        confirmButtonText: "OK",
-      })
-        .then(this.errR)
-        .catch(this.errR);
-    },
   },
 });
 </script>

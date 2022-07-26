@@ -20,7 +20,11 @@
         </el-page-header>
       </el-card>
       <el-card v-loading="loading">
-        <user-light :name="user.name" :col="user.col" :tag="user.tag"></user-light>
+        <user-light
+          :name="user.name"
+          :col="user.col"
+          :tag="user.tag"
+        ></user-light>
       </el-card>
       <el-card v-loading="loading">
         评测结果
@@ -168,7 +172,6 @@ export default defineComponent({
           this.reslist = data.data.data[0].judgeinfo.split("");
           this.user.name = data.data.data[0].username;
           this.user.col = data.data.data[0].usercol;
-          
         })
         .catch((err) => {
           console.error(err);

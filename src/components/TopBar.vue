@@ -14,8 +14,7 @@
         新成OJ
       </router-link>
     </span>
-    <div class="flex-grow">
-    </div>
+    <div class="flex-grow"></div>
     <el-popover placement="left" trigger="hover" content="content">
       <template #reference>
         <el-avatar :src="src" />

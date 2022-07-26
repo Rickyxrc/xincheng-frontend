@@ -5,11 +5,12 @@
     alignment="start"
     :size="16"
     style="width: 100%"
+    v-if="stat == 200"
   >
     <el-input v-model="searchBoxContent" placeholder="键入以搜索题目......" />
     <el-card shadow="hover" style="margin-bottom: 20px" v-if="permission > 0">
       新建题目
-      <!-- <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link> -->
+      <router-link :to="'/problems/XC'+(pid)+'/edit'" style="text-decoration: none;"><el-button type="primary" link>编辑</el-button></router-link>
     </el-card>
     <el-table
       :data="tableData"
@@ -76,6 +77,16 @@
       :total="1075"
     />
   </el-space>
+  <el-result
+    icon="error"
+    title="访问被拒绝"
+    sub-title="登录已过期，请重新登录"
+    v-else-if="stat == 403"
+  >
+    <template #extra>
+      <el-button type="primary">Back</el-button>
+    </template>
+  </el-result>
 </template>
 
 <style>
@@ -109,6 +120,7 @@ export default defineComponent({
       loading: true,
       searchBoxContent: "",
       tableData: this.getData(),
+      stat: 200,
     };
   },
   methods: {
@@ -128,13 +140,12 @@ export default defineComponent({
         .then((data: any) => {
           this.loading = false;
           this.tableData = data.data.data;
+          this.stat = 200;
         })
-        .catch(() => {
-          ElNotification.error({
-            title: "网络错误",
-            message: "网络错误，请再试一次",
-            
-          });
+        .catch((err) => {
+          this.loading = false;
+          this.stat = err.response.status;
+          if (err.response.status == 403) this.$emit("logout");
         });
     },
     jump(row: any) {

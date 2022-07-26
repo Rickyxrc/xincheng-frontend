@@ -5,9 +5,7 @@
         <login-view @transfer="flush"></login-view>
       </template>
       <el-container v-else>
-        <!-- <div class="cl"> -->
-          <change-link @flush="flush" />
-        <!-- </div> -->
+        <change-link @flush="flush" />
         <el-header>
           <top-bar
             class="top"
@@ -22,7 +20,7 @@
             v-model:open="drawer"
             @close="closelbar"
           ></portable-bar>
-          <el-aside class="hidden-md-and-down" style="width: 20vw">
+          <el-aside class="hidden-sm-and-down" style="width: 20vw">
             <menu-bar></menu-bar>
           </el-aside>
           <el-main style="max-height: 92vh; overflow: hidden; padding-top: 0">
@@ -55,7 +53,6 @@ body {
   overflow: hidden;
 }
 </style>
-
 
 <script lang="ts" setup>
 store.commit("setSession", localStorage.getItem("session"));

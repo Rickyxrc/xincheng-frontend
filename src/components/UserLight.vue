@@ -36,6 +36,6 @@ export default defineComponent({
       if (this.$props.col == 2) return "warning";
       if (this.$props.col == 3) return "danger";
     },
-  }
+  },
 });
 </script>

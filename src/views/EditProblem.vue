@@ -6,10 +6,17 @@
     alignment="start"
     :size="16"
     style="width: 100%"
+    v-if="stat == 200 || stat == 404"
   >
     <el-card shadow="hover" v-loading="loading">
       <el-page-header :content="'编辑题目 ' + problem.title" @back="back" />
     </el-card>
+    <el-alert
+      title="Welcome!"
+      type="success"
+      description="这道题目目前还不存在，提交后自动生成题目，感谢贡献。"
+      v-if="stat==404"
+    />
     <el-card shadow="hover">
       <el-form :model="problem" label-width="120px">
         <el-form-item label="标题">
@@ -27,10 +34,20 @@
     <el-button type="primary" @click="submit" setle="margin-top:1rem;"
       >提交</el-button
     >
+    <el-button class="hidden-md-and-up" type="primary" link
+      >你还非要改链接进来！？不可能！</el-button
+    >
   </el-space>
-  <el-button class="hidden-md-and-up" type="primary" link
-    >你还非要点进来！？不可能！</el-button
+  <el-result
+    icon="error"
+    title="访问被拒绝"
+    sub-title="您可能不是管理员，或登录过期"
+    v-else-if="stat == 403"
   >
+    <template #extra>
+      <el-button type="primary">Back</el-button>
+    </template>
+  </el-result>
 </template>
 
 <script lang="ts">
@@ -44,6 +61,7 @@ import store from "../store";
 export default defineComponent({
   props: ["pid"],
   methods: {
+    setup() {},
     back() {
       router.go(-1);
     },
@@ -56,14 +74,22 @@ export default defineComponent({
             session: store.state.session,
           },
         }
-      ).then((data: any) => {
-        // return data.data;
-        this.problem.title = data.data.data.title;
-        this.problem.html = data.data.data.content;
-        this.problem.difficulty = data.data.data.difficulty;
-        this.problem.active = data.data.data.active;
-        this.loading = false;
-      });
+      )
+        .then((data: any) => {
+          // return data.data;
+          this.problem.title = data.data.data.title;
+          this.problem.html = data.data.data.content;
+          this.problem.difficulty = data.data.data.difficulty;
+          this.problem.active = Boolean(data.data.data.active);
+          console.log(data.data.data);
+          this.loading = false;
+        })
+        .catch((err: any) => {
+          this.stat = err.response.status;
+          if (store.state.permission < 1) this.stat = 403;
+          if (this.stat == 404) this.problem.difficulty = 1;
+          this.loading = false;
+        });
     },
     render() {
       return marked(this.problem.html);
@@ -98,16 +124,15 @@ export default defineComponent({
           }
         })
         .catch((err) => {
-          ElNotification.error({
-            title: "Network error",
-            message: "网络错误，请再试一次",
-          });
+          this.stat = err.response.status;
+          this.loading = false;
         });
     },
   },
   data() {
     return {
       loading: true,
+      stat: 200,
       problem: {
         title: "",
         html: "",
@@ -116,11 +141,6 @@ export default defineComponent({
       },
       tmp: this.getProblem(),
     };
-  },
-  setup() {
-    if (store.state.permission < 1) {
-      router.go(-1);
-    }
   },
 });
 </script>

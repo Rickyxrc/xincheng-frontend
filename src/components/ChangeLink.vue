@@ -51,7 +51,6 @@ export default defineComponent({
       if (key == 81 && e.ctrlKey) {
         // @ts-ignore
         window.event.preventDefault(); //关闭浏览器快捷键
-        //== 83 && event.ctrlKey
         _this.expend();
       }
       if (key == 116 || (key == 82 && e.ctrlKey)) {
@@ -62,9 +61,6 @@ export default defineComponent({
       }
     };
   },
-  //   props: {
-  //     linkOpened: Boolean,
-  //   },
   data() {
     return {
       href: window.location.pathname,
@@ -82,6 +78,7 @@ export default defineComponent({
     gohref() {
       router.push(this.href);
       this.linkOpened = false;
+      this.$emit("flush");
       //   router.push(this)
     },
   },

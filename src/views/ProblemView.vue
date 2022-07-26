@@ -5,6 +5,7 @@
     alignment="start"
     :size="16"
     style="width: 100%"
+    v-if="stat == 200"
   >
     <el-card shadow="hover" v-loading="loading">
       <el-page-header title="返回" @back="back">
@@ -13,12 +14,11 @@
           <router-link
             :to="'/problems/XC' + pid + '/submit'"
             style="text-decoration: none"
-            >
-            <el-button class="hidden-sm-and-down" type="primary" link>
-            提交答案
-            </el-button>
-            </router-link
           >
+            <el-button class="hidden-sm-and-down" type="primary" link>
+              提交答案
+            </el-button>
+          </router-link>
         </template>
       </el-page-header>
     </el-card>
@@ -55,6 +55,26 @@
       </el-col>
     </el-row>
   </el-space>
+  <el-result
+    icon="error"
+    title="访问被拒绝"
+    sub-title="您没有权限查看该题目"
+    v-else-if="stat == 403"
+  >
+    <template #extra>
+      <el-button type="primary">Back</el-button>
+    </template>
+  </el-result>
+  <el-result
+    icon="error"
+    title="找不到题目"
+    sub-title="不存在的题目编号"
+    v-else-if="stat == 404"
+  >
+    <template #extra>
+      <el-button type="primary">Back</el-button>
+    </template>
+  </el-result>
 </template>
 
 <script lang="ts">
@@ -84,17 +104,25 @@ export default defineComponent({
             session: store.state.session,
           },
         }
-      ).then((data: any) => {
-        this.problem.title = data.data.data.title;
-        this.problem.html = data.data.data.content;
-        this.loading = false;
-      });
+      )
+        .then((data: any) => {
+          this.stat = 200;
+          this.problem.title = data.data.data.title;
+          this.problem.html = data.data.data.content;
+          this.loading = false;
+        })
+        .catch((data: any) => {
+          this.loading = false;
+          this.stat = data.response.status;
+          if (data.response.status == 403) this.$emit("logout");
+        });
     },
   },
   data() {
     return {
       loading: true,
       permission: store.state.permission,
+      stat: 200,
       problem: {
         title: "",
         score: 0,
