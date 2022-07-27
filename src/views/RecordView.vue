@@ -1,64 +1,66 @@
 <template>
-  <template v-if="hasPermission">
-    <el-space
-      :fill="true"
-      direction="vertical"
-      alignment="start"
-      :size="16"
-      style="width: 100%"
-    >
-      <el-card shadow="hover" v-loading="loading">
-        <el-page-header title="返回" @back="back">
-          <template #content>
-            R{{ rid }}&nbsp;-&nbsp;记录查看<el-button
-              type="primary"
-              @click="flush"
-              link
-              >点我刷新</el-button
-            ></template
-          >
-        </el-page-header>
-      </el-card>
-      <el-card v-loading="loading">
-        <user-light
-          :name="user.name"
-          :col="user.col"
-          :tag="user.tag"
-        ></user-light>
-      </el-card>
-      <el-card v-loading="loading">
-        评测结果
-        <el-space
-          :fill="true"
-          direction="vertical"
-          alignment="start"
-          :size="16"
-          style="width: 100%"
+  <el-space
+    :fill="true"
+    direction="vertical"
+    alignment="start"
+    :size="16"
+    style="width: 100%"
+    v-if="stat==200"
+  >
+    <el-card shadow="hover" v-loading="loading">
+      <el-page-header title="返回" @back="back">
+        <template #content>
+          R{{ rid }}&nbsp;-&nbsp;记录查看<el-button
+            type="primary"
+            @click="flush"
+            link
+            >点我刷新</el-button
+          ></template
         >
-          <template v-for="(i, ind) in reslist" :key="ind">
-            <div class="stat" :class="i">
-              <div>#{{ ind }}</div>
-            </div>
-          </template>
-        </el-space>
-      </el-card>
-      <el-card v-loading="loading">
-        源代码
-        <div>
-          <pre
-            v-highlight
-          ><code class="language-cpp" style="font-family:Consolas;border-radius: 4px;">{{code}}</code></pre>
-        </div>
-      </el-card>
-    </el-space>
-  </template>
-  <template v-else>
-    <el-result icon="error" title="访问被拒绝" sub-title="您可能没有权限">
-      <template #extra>
-        <el-button type="primary" @click="$router.go(-1)">Back</el-button>
-      </template>
-    </el-result>
-  </template>
+      </el-page-header>
+    </el-card>
+    <el-card v-loading="loading">
+      <user-light
+        :name="user.name"
+        :col="user.col"
+        :tag="user.tag"
+      ></user-light>
+    </el-card>
+    <el-card v-loading="loading">
+      评测结果
+      <el-space
+        :fill="true"
+        direction="vertical"
+        alignment="start"
+        :size="16"
+        style="width: 100%"
+      >
+        <template v-for="(i, ind) in reslist" :key="ind">
+          <div class="stat" :class="i">
+            <div>#{{ ind }}</div>
+          </div>
+        </template>
+      </el-space>
+    </el-card>
+    <el-card v-loading="loading">
+      源代码
+      <div>
+        <pre
+          v-highlight
+        ><code class="language-cpp" style="font-family:Consolas;border-radius: 4px;">{{code}}</code></pre>
+      </div>
+    </el-card>
+  </el-space>
+  <el-result icon="error" title="访问被拒绝" sub-title="您可能没有权限" v-else-if="stat==403">
+    <template #extra>
+      <el-button type="primary" @click="$router.go(-1)">Back</el-button>
+    </template>
+  </el-result>
+  <el-result icon="error" title="找不到资源" sub-title="记录不存在" v-else-if="stat==404">
+    <template #extra>
+      <el-button type="primary" @click="$router.go(-1)">Back</el-button>
+    </template>
+  </el-result>  
 </template>
 
 <style scoped>
@@ -167,25 +169,15 @@ export default defineComponent({
       )
         .then((data: any) => {
           this.loading = false;
-          console.log(data.data.data[0]);
-          this.code = data.data.data[0].code;
-          this.reslist = data.data.data[0].judgeinfo.split("");
-          this.user.name = data.data.data[0].username;
-          this.user.col = data.data.data[0].usercol;
+          console.log(data.data.data);
+          this.code = data.data.data.code;
+          this.reslist = data.data.data.judgeinfo.split("");
+          this.user.name = data.data.data.username;
+          this.user.col = data.data.data.usercol;
         })
         .catch((err) => {
           console.error(err);
-          if (err.response.status == 403) {
-            ElNotification.error({
-              title: "拒绝访问",
-              message: "权限不足",
-            });
-            this.hasPermission = false;
-          } else
-            ElNotification.error({
-              title: "网络错误",
-              message: "网络错误，请再试一次",
-            });
+          this.stat = err.response.status;
         });
     },
     flush() {
@@ -195,6 +187,7 @@ export default defineComponent({
   data() {
     return {
       loading: false,
+      stat: 200,
       tmp: this.getRecord(),
       hasPermission: true,
       code: "",

@@ -31,7 +31,7 @@ const app = createApp(App);
 app.directive("highlight", function (el) {
   const blocks = el.querySelectorAll("pre code");
   blocks.forEach((block: any) => {
-    hljs.highlightBlock(block);
+    hljs.highlightElement(block);
   });
 });
 app.use(VMdEditor).use(store).use(router).mount("#app");

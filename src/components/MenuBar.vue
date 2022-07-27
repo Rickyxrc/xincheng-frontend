@@ -12,12 +12,12 @@
       </el-icon>
       <template #title>题目列表</template>
     </el-menu-item>
-    <!-- <el-menu-item index="/junior/list">
+    <el-menu-item index="/records/list">
       <el-icon>
-        <icon-menu />
+        <icon-list />
       </el-icon>
-      <template #title>初赛题库</template>
-    </el-menu-item> -->
+      <template #title>评测记录</template>
+    </el-menu-item>
   </el-menu>
 </template>
 

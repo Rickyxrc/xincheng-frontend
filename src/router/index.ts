@@ -25,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/SubmitProblem.vue"),
   },
   {
+    path: "/records/list",
+    name: "recordlist",
+    component: () => import("../views/RecordList.vue"),
+  },
+  {
     path: "/records/:rid",
     props: true,
     name: "recordproblem",
