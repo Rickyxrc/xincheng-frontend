@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <div style="font-size: 1.2rem">用户信息</div>
-    <el-avatar shape="square" :src="src" />
+    <el-avatar :src="src" />
     <user-light :name="name" :col="color" :tag="tag"></user-light>
     <!-- <div>
       用户名&nbsp;{{ name }}
@@ -15,6 +15,7 @@
 import { defineComponent } from "vue";
 import store from "../store";
 import UserLight from "./UserLight.vue";
+import md5 from "js-md5";
 
 export default defineComponent({
   components: { UserLight },
@@ -22,7 +23,7 @@ export default defineComponent({
     console.log("permission", store.state.permission);
     var permission = store.state.permission;
     return {
-      src: "/head.png",
+      src: encodeURI('https://cravatar.cn/avatar/'+md5(store.state.mail)),
       name: store.state.username,
       mail: store.state.mail,
       tag: store.state.tag,

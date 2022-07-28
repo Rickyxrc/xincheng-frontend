@@ -21,9 +21,9 @@
       </template>
       <template #default>
         <div style="display: flex; gap: 16px; flex-direction: column">
-          <el-avatar shape="square" :src="src" />
+          <el-avatar :src="src" />
           <div>
-            <p style="margin: 0; font-weight: 500">Rickyxrc</p>
+            <p style="margin: 0; font-weight: 500">{{uname}}</p>
             <p style="margin: 0; font-size: 14px; color: var(--el-color-info)">
               @新成OJ
             </p>
@@ -48,12 +48,16 @@ import { Menu as MenuIcon } from "@element-plus/icons-vue";
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import md5 from "js-md5";
+import store from "../store";
 
 export default defineComponent({
   data() {
     return {
       input: window.location.href,
-      src: "/head.png",
+      // src: "/head.png",
+      src: encodeURI('https://cravatar.cn/avatar/' + md5(store.state.mail)),
+      uname:store.state.username
     };
   },
   name: "TopBar",
