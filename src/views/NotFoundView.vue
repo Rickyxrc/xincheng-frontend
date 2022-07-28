@@ -1,5 +1,5 @@
 <template>
-  <el-empty description="啥都没有">
+  <el-empty description="你在期待什么？">
     <el-button type="primary" @click="goback()">返回</el-button>
   </el-empty>
 </template>

@@ -35,13 +35,17 @@
       <el-table-column label="评测得分">
         <template #default="scope">
           <div v-if="scope.row.judgeinfo == 'J'">请稍等，正在评测</div>
-          <div v-else>{{ getscore(scope.row.judgeinfo) }}</div>
+          <!-- <div v-else>{{ getscore(scope.row.judgeinfo) }}</div> -->
+          <score-light
+            :score="getscore(scope.row.judgeinfo)"
+            v-else
+          ></score-light>
         </template>
       </el-table-column>
       <el-table-column label="详细状态">
         <template #default="scope">
-          <div v-if="scope.row.judgeinfo=='J'">评测中</div>
-          <div v-else-if="scope.row.judgeinfo=='C'">编译错误</div>
+          <div v-if="scope.row.judgeinfo == 'J'">评测中</div>
+          <div v-else-if="scope.row.judgeinfo == 'C'">编译错误</div>
           <div v-else>{{ scope.row.judgeinfo }}</div>
         </template>
       </el-table-column>
@@ -113,28 +117,27 @@ export default defineComponent({
         }
       )
         .then((data: any) => {
-          this.loading = false;
-          this.tableData = data.data.data;
+          this.tableData = data.data;
           this.stat = 200;
-        })
-        .catch((err) => {
-          this.loading = false;
-          this.stat = err.response.status;
-          if (err.response.status == 403) this.$emit("logout");
-        });
-      post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/sum",
-        {
-          params: {
-            session: store.state.session,
-          },
-        }
-      )
-        .then((data: any) => {
-          this.loading = false;
-          this.total = data.data.data.len;
-          console.log("tot", data.data.data.len);
-          this.stat = 200;
+          post(
+            "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/sum",
+            {
+              params: {
+                session: store.state.session,
+              },
+            }
+          )
+            .then((data: any) => {
+              this.loading = false;
+              this.total = data.data.len;
+              console.log("tot", data.data.len);
+              this.stat = 200;
+            })
+            .catch((err) => {
+              this.loading = false;
+              this.stat = err.response.status;
+              if (err.response.status == 403) this.$emit("logout");
+            });
         })
         .catch((err) => {
           this.loading = false;
@@ -143,7 +146,9 @@ export default defineComponent({
         });
     },
     jump(row: any) {
-      router.push("/records/" + row.rid);
+      setTimeout(() => {
+        router.push("/records/" + row.rid);
+      }, 50);
     },
     getscore(scorestr: any) {
       var a = 0;

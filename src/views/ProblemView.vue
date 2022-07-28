@@ -73,6 +73,13 @@
   >
     <template #extra>
       <el-button type="primary">Back</el-button>
+      <el-button type="primary" v-if="permission > 0"
+        ><router-link
+          :to="'/problems/XC' + pid + '/edit'"
+          style="color: #ffffff; text-decoration: none"
+          >或者，现场创建一个？</router-link
+        ></el-button
+      >
     </template>
   </el-result>
 </template>
@@ -107,8 +114,8 @@ export default defineComponent({
       )
         .then((data: any) => {
           this.stat = 200;
-          this.problem.title = data.data.data.title;
-          this.problem.html = data.data.data.content;
+          this.problem.title = data.data.title;
+          this.problem.html = data.data.content;
           this.loading = false;
         })
         .catch((data: any) => {

@@ -57,7 +57,7 @@ export default defineComponent({
             title: "成功",
             message: "提交成功",
           });
-          router.push("/records/" + data.data.data.rid);
+          router.push("/records/" + data.data.rid);
         })
         .catch(() => {
           ElNotification.error({

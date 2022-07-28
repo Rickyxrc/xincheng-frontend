@@ -30,6 +30,11 @@
           </div>
           <p style="margin: 0">
             <el-button type="primary" plain @click="logout()">登出</el-button>
+            <el-button type="primary" link
+              ><router-link to="/repasswd" style="text-decoration: none"
+                >改密码！</router-link
+              ></el-button
+            >
           </p>
         </div>
       </template>

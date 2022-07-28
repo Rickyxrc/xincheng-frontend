@@ -15,7 +15,7 @@
       title="Welcome!"
       type="success"
       description="这道题目目前还不存在，提交后自动生成题目，感谢贡献。"
-      v-if="stat==404"
+      v-if="stat == 404"
     />
     <el-card shadow="hover">
       <el-form :model="problem" label-width="120px">
@@ -54,7 +54,7 @@
 import { defineComponent } from "vue";
 import router from "../router/index";
 import { marked } from "marked";
-import post from "axios";
+import axios from "axios";
 import { ElNotification } from "element-plus";
 import store from "../store";
 
@@ -66,22 +66,21 @@ export default defineComponent({
       router.go(-1);
     },
     getProblem() {
-      post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/get",
-        {
-          params: {
-            pid: this.$props.pid,
-            session: store.state.session,
-          },
-        }
-      )
+      axios({
+        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/get",
+        method: "post",
+        params: {
+          pid: this.$props.pid,
+          session: store.state.session,
+        },
+      })
         .then((data: any) => {
           // return data.data;
-          this.problem.title = data.data.data.title;
-          this.problem.html = data.data.data.content;
-          this.problem.difficulty = data.data.data.difficulty;
-          this.problem.active = Boolean(data.data.data.active);
-          console.log(data.data.data);
+          this.problem.title = data.data.title;
+          this.problem.html = data.data.content;
+          this.problem.difficulty = data.data.difficulty;
+          this.problem.active = Boolean(data.data.active);
+          console.log(data.data);
           this.loading = false;
         })
         .catch((err: any) => {
@@ -95,33 +94,25 @@ export default defineComponent({
       return marked(this.problem.html);
     },
     submit() {
-      post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/new",
-        {
-          params: {
-            pid: this.$props.pid,
-            content: this.problem.html,
-            session: store.state.session,
-            title: this.problem.title,
-            difficulty: this.problem.difficulty,
-            active: this.problem.active ? 1 : 0,
-          },
-        }
-      )
+      axios({
+        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/new",
+        method: "post",
+        params: {
+          pid: this.$props.pid,
+          content: this.problem.html,
+          session: store.state.session,
+          title: this.problem.title,
+          difficulty: this.problem.difficulty,
+          active: this.problem.active ? 1 : 0,
+        },
+      })
         .then((data: any) => {
           // return data.data;
           this.loading = false;
-          if (data.data.success) {
-            ElNotification.success({
-              title: "Success",
-              message: "题目保存成功",
-            });
-          } else {
-            ElNotification.error({
-              title: "Network error",
-              message: "网络错误，请再试一次",
-            });
-          }
+          ElNotification.success({
+            title: "Success",
+            message: "题目保存成功",
+          });
         })
         .catch((err) => {
           this.stat = err.response.status;

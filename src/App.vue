@@ -27,6 +27,7 @@
             <el-scrollbar>
               <router-view
                 style="overflow-x: hidden; margin-top: 1rem"
+                @logout="clearcookie()"
               ></router-view>
             </el-scrollbar>
           </el-main>
@@ -125,6 +126,9 @@ export default defineComponent({
       this.linkOpened = true;
       // this.$refs.changeHref.focus();
     },
+  },
+  mounted() {
+    document.dispatchEvent(new Event("render-event"));
   },
 });
 </script>

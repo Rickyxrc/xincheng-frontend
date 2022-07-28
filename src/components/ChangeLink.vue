@@ -14,6 +14,7 @@
             v-model:model-value="href"
             @keydown.enter="gohref"
             ref="inputHref"
+            :autofocus="true"
           ></el-input>
         </el-col>
         <el-col :span="4">
@@ -72,7 +73,7 @@ export default defineComponent({
       this.linkOpened = true;
       this.href = window.location.pathname;
       // @ts-ignore
-      this.$refs.inputHref.focus();
+      // this.$refs.inputHref.focus();
       //   this.$emit("expend");
     },
     gohref() {

@@ -41,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/ProblemList.vue"),
   },
   {
+    path: "/repasswd",
+    component: () => import("../views/RepasswordView.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     component: () => import("../views/NotFoundView.vue"),
   },

@@ -44,7 +44,6 @@ import UserFull from "../components/UserFull.vue";
 
 export default defineComponent({
   components: { UserFull },
-  methods: {
-  },
+  methods: {},
 });
 </script>

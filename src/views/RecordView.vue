@@ -5,7 +5,7 @@
     alignment="start"
     :size="16"
     style="width: 100%"
-    v-if="stat==200"
+    v-if="stat == 200"
   >
     <el-card shadow="hover" v-loading="loading">
       <el-page-header title="返回" @back="back">
@@ -20,6 +20,7 @@
       </el-page-header>
     </el-card>
     <el-card v-loading="loading">
+      提交用户<br />
       <user-light
         :name="user.name"
         :col="user.col"
@@ -51,16 +52,26 @@
       </div>
     </el-card>
   </el-space>
-  <el-result icon="error" title="访问被拒绝" sub-title="您可能没有权限" v-else-if="stat==403">
+  <el-result
+    icon="error"
+    title="访问被拒绝"
+    sub-title="您可能没有权限"
+    v-else-if="stat == 403"
+  >
     <template #extra>
       <el-button type="primary" @click="$router.go(-1)">Back</el-button>
     </template>
   </el-result>
-  <el-result icon="error" title="找不到资源" sub-title="记录不存在" v-else-if="stat==404">
+  <el-result
+    icon="error"
+    title="找不到资源"
+    sub-title="记录不存在"
+    v-else-if="stat == 404"
+  >
     <template #extra>
       <el-button type="primary" @click="$router.go(-1)">Back</el-button>
     </template>
-  </el-result>  
+  </el-result>
 </template>
 
 <style scoped>
@@ -169,11 +180,11 @@ export default defineComponent({
       )
         .then((data: any) => {
           this.loading = false;
-          console.log(data.data.data);
-          this.code = data.data.data.code;
-          this.reslist = data.data.data.judgeinfo.split("");
-          this.user.name = data.data.data.username;
-          this.user.col = data.data.data.usercol;
+          console.log(data.data);
+          this.code = data.data.code;
+          this.reslist = data.data.judgeinfo.split("");
+          this.user.name = data.data.username;
+          this.user.col = data.data.usercol;
         })
         .catch((err) => {
           console.error(err);

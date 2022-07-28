@@ -84,7 +84,7 @@
 <script lang="ts">
 import { ElNotification } from "element-plus";
 import { defineComponent } from "vue";
-import post from "axios";
+import axios from "axios";
 import store from "../store";
 
 export default defineComponent({
@@ -100,54 +100,46 @@ export default defineComponent({
   methods: {
     getSession() {
       this.loading = true;
-      post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/login",
-        {
-          params: {
-            username: this.userinfo.username,
-            password: this.userinfo.password,
-          },
-        }
-      )
+      axios({
+        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/login",
+        method: "post",
+        params: {
+          username: this.userinfo.username,
+          password: this.userinfo.password,
+        },
+      })
         .then((data: any) => {
           this.loading = false;
           store.commit("setSession", data.data.session);
-          if (data.data.success != true)
-            ElNotification.error({
-              title: "登录失败",
-              message: "用户不存在或密码错误",
+          axios({
+            url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/info",
+            method: "post",
+            params: {
+              session: data.data.session,
+            },
+          }).then((data: any) => {
+            store.commit("setUser", data.data);
+            this.$emit("transfer");
+            ElNotification.success({
+              title: "登录成功",
+              message: "欢迎来到新成OJ!",
             });
-          else {
-            post(
-              "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/info",
-              {
-                params: {
-                  session: data.data.session,
-                },
-              }
-            ).then((data: any) => {
-              if (data.data.success == true) {
-                store.commit("setUser", data.data.data);
-                this.$emit("transfer");
-                ElNotification.success({
-                  title: "登录成功",
-                  message: "欢迎来到新成OJ!",
-                });
-                // this.username = data.data.data.username;
-                // this.mail = data.data.data.mail;
-                // this.permission = data.data.data.permission;
-                // this.tag = data.data.data.tag;
-                // this.color = data.data.data.color;
-              } else throw "ERR";
-            });
-          }
+          });
         })
         .catch((err: any) => {
           this.loading = false;
-          ElNotification.error({
-            title: "登录失败",
-            message: "网络错误，请稍后再试",
-          });
+          if (err.response.status == 403)
+            ElNotification.error({
+              title: "登录失败",
+              message: "用户名或密码错误",
+            });
+          else {
+            console.log(err);
+            ElNotification.error({
+              title: "登录失败",
+              message: "网络错误，请稍后再试",
+            });
+          }
         });
     },
   },
