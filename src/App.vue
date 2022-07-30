@@ -38,7 +38,6 @@
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Noto+Serif+SC|PT+Serif|Fira+Code");
 * {
   font-family: "Fira Code", "PT Serif", "Noto Serif SC", Helvetica, sans-serif;
 }
@@ -47,11 +46,31 @@
   background-color: var(--el-color-primary-light-7);
   color: var(--el-text-color-primary);
 }
-
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  margin: 0;
+}
+@keyframes anblurin {
+  0% {
+    transform: translateY(20px);
+    filter: blur(7px);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
+}
+.el-card,
+.el-alert,
+.el-input,
+.el-table,
+.el-form-item,
+.el-button,
+.el-textarea,
+.el-pagination {
+  animation: anblurin 0.65s;
 }
 </style>
 
@@ -68,7 +87,6 @@ import LoginView from "./views/LoginView.vue";
 import store from "./store";
 import PortableBar from "./components/PortableBar.vue";
 import router from "./router";
-import { ElNotification } from "element-plus";
 
 export default defineComponent({
   data: () => {
@@ -77,6 +95,7 @@ export default defineComponent({
       show: true,
       drawer: false,
       linkOpened: false,
+      flushing: false,
     };
   },
 
@@ -105,10 +124,16 @@ export default defineComponent({
       else return true;
     },
     flush() {
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+      if (this.flushing)
+        return;
+      this.flushing = true;
+      setTimeout(() => {
+        this.show = false;
+        this.$nextTick(() => {
+          this.show = true;
+          this.flushing = false;
+        });
+      }, 500);
     },
     clearcookie() {
       store.commit("setSession");

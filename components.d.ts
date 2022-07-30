@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     ElTag: typeof import('element-plus/es')['ElTag']
     MenuBar: typeof import('./src/components/MenuBar.vue')['default']
     PortableBar: typeof import('./src/components/PortableBar.vue')['default']
+    RecordBlock: typeof import('./src/components/RecordBlock.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScoreLight: typeof import('./src/components/ScoreLight.vue')['default']

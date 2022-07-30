@@ -28,6 +28,12 @@
         <el-form-item label="激活">
           <el-switch v-model="problem.active" />
         </el-form-item>
+        <el-form-item label="时间限制">
+          <el-input v-model="problem.timelimit" />
+        </el-form-item>
+        <el-form-item label="空间限制">
+          <el-input v-model="problem.memlimit" />
+        </el-form-item>
       </el-form>
     </el-card>
     <v-md-editor v-model="problem.html"></v-md-editor>
@@ -80,6 +86,8 @@ export default defineComponent({
           this.problem.html = data.data.content;
           this.problem.difficulty = data.data.difficulty;
           this.problem.active = Boolean(data.data.active);
+          this.problem.timelimit = data.data.timelimit;
+          this.problem.memlimit = data.data.memlimit;
           console.log(data.data);
           this.loading = false;
         })
@@ -104,6 +112,8 @@ export default defineComponent({
           title: this.problem.title,
           difficulty: this.problem.difficulty,
           active: this.problem.active ? 1 : 0,
+          timelimit: this.problem.timelimit,
+          memlimit: this.problem.memlimit,
         },
       })
         .then((data: any) => {
@@ -129,6 +139,8 @@ export default defineComponent({
         html: "",
         difficulty: -1,
         active: false,
+        timelimit: -1,
+        memlimit: -1,
       },
       tmp: this.getProblem(),
     };

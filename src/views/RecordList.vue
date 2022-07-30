@@ -13,7 +13,7 @@
       v-loading="loading"
       @row-click="jump"
     >
-      <el-table-column label="评测编号">
+      <el-table-column label="评测编号" width="80">
         <template #default="scope">
           {{ scope.row.rid }}
         </template>
@@ -27,15 +27,14 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="题目编号">
+      <el-table-column label="题目编号"  width="80">
         <template #default="scope">
           {{ "XC" + scope.row.problem }}
         </template>
       </el-table-column>
-      <el-table-column label="评测得分">
+      <el-table-column label="评测得分" width="80">
         <template #default="scope">
-          <div v-if="scope.row.judgeinfo == 'J'">请稍等，正在评测</div>
-          <!-- <div v-else>{{ getscore(scope.row.judgeinfo) }}</div> -->
+          <div v-if="scope.row.judgeinfo == 'J'">--</div>
           <score-light
             :score="getscore(scope.row.judgeinfo)"
             v-else
@@ -44,9 +43,10 @@
       </el-table-column>
       <el-table-column label="详细状态">
         <template #default="scope">
-          <div v-if="scope.row.judgeinfo == 'J'">评测中</div>
-          <div v-else-if="scope.row.judgeinfo == 'C'">编译错误</div>
-          <div v-else>{{ scope.row.judgeinfo }}</div>
+          <!-- <div v-if="scope.row.judgeinfo == 'J'">评测中</div>
+          <div v-else-if="scope.row.judgeinfo == 'C'">编译错误</div> -->
+          <record-block :RecordData="scope.row.judgeinfo"></record-block>
+          <!-- <div v-else>{{ scope.row.judgeinfo }}</div> -->
         </template>
       </el-table-column>
     </el-table>
@@ -153,7 +153,7 @@ export default defineComponent({
     getscore(scorestr: any) {
       var a = 0;
       for (var i = 0; i < scorestr.length; i++) if (scorestr[i] == "A") a++;
-      return 100 * ((a * 1.0) / scorestr.length);
+      return Math.round(100 * ((a * 1.0) / scorestr.length));
     },
   },
   watch: {

@@ -49,7 +49,8 @@
             <el-form-item label="题目名称"
               ><span>{{ problem.title }}</span></el-form-item
             >
-            <el-form-item label="分数">{{ problem.score }}</el-form-item>
+            <el-form-item label="时间限制">{{ problem.timelimit }} ms</el-form-item>
+            <el-form-item label="空间限制">{{ problem.memlimit }} m</el-form-item>
           </el-form>
         </el-card>
       </el-col>
@@ -116,6 +117,8 @@ export default defineComponent({
           this.stat = 200;
           this.problem.title = data.data.title;
           this.problem.html = data.data.content;
+          this.problem.timelimit = data.data.timelimit;
+          this.problem.memlimit = data.data.memlimit;
           this.loading = false;
         })
         .catch((data: any) => {
@@ -134,6 +137,8 @@ export default defineComponent({
         title: "",
         score: 0,
         html: "",
+        timelimit: 0,
+        memlimit: 0,
       },
       tmp: this.getProblem(),
     };

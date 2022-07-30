@@ -26,7 +26,7 @@
       v-loading="loading"
       @row-click="jump"
     >
-      <el-table-column prop="pid" label="PID" />
+      <el-table-column prop="pid" label="PID" width="100" />
       <el-table-column prop="title" label="标题">
         <template #default="scope">
           {{ scope.row.title }}
