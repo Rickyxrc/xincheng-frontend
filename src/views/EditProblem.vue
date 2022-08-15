@@ -73,7 +73,7 @@ export default defineComponent({
     },
     getProblem() {
       axios({
-        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/get",
+        url: "http://api.oj.xjcw.com/problems/get",
         method: "post",
         params: {
           pid: this.$props.pid,
@@ -88,7 +88,7 @@ export default defineComponent({
           this.problem.active = Boolean(data.data.active);
           this.problem.timelimit = data.data.timelimit;
           this.problem.memlimit = data.data.memlimit;
-          console.log(data.data);
+          //console.log(data.data);
           this.loading = false;
         })
         .catch((err: any) => {
@@ -103,7 +103,7 @@ export default defineComponent({
     },
     submit() {
       axios({
-        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/new",
+        url: "http://api.oj.xjcw.com/problems/new",
         method: "post",
         params: {
           pid: this.$props.pid,

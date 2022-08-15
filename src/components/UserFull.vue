@@ -22,8 +22,14 @@ export default defineComponent({
   setup() {
     console.log("permission", store.state.permission);
     var permission = store.state.permission;
+    var src='https://cravatar.cn/avatar/245467ef31b6f0addc72b039b94122a4?f=y'
+    console.log("hh",store.state.mail);
+    if(store.state.mail==undefined||store.state.mail=='')
+      console.log('ERR');
+    else
+      src=encodeURI('https://cravatar.cn/avatar/'+md5(store.state.mail));
     return {
-      src: encodeURI('https://cravatar.cn/avatar/'+md5(store.state.mail)),
+      src:src,
       name: store.state.username,
       mail: store.state.mail,
       tag: store.state.tag,

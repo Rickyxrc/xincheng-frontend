@@ -7,7 +7,7 @@
       direction="btt"
       id="changeHref"
     >
-      在这里改的好处是不用刷新页面,前进/后退直接浏览器里的地址栏
+      <p>在这里改的好处是不用刷新页面,前进/后退直接浏览器里的地址栏</p>
       <el-row>
         <el-col :span="20">
           <el-input

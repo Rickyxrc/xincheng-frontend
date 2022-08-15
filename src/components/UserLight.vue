@@ -30,7 +30,7 @@ export default defineComponent({
   },
   methods: {
     getClass() {
-      console.log(this.$props.col);
+      //console.log(this.$props.col);
       if (this.$props.col == 0) return "primary";
       if (this.$props.col == 1) return "success";
       if (this.$props.col == 2) return "warning";

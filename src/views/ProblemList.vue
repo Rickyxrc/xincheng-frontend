@@ -55,12 +55,22 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      v-model:currentPage="pagenow"
-      v-model:page-size="limit"
-      layout="prev, pager, next"
+    <!-- <el-pagination
+      v-model:current-page="pagenow"
+      layout="total, prev, pager, next"
       :total="count"
-    />
+    /> -->
+        <!-- <el-pagination
+      v-model:currentPage="pagenow"
+      :small="false"
+      :disabled="false"
+      :background="false"
+      layout="total, prev, pager, next"
+      :total="count"
+      @size-change="getData"
+      @current-change="getData"
+    /> -->
+    <el-pagination layout="prev, pager, next" :total="1000" @update:current-page="updatee" />
   </el-space>
   <el-result
     icon="error"
@@ -96,7 +106,6 @@ export default defineComponent({
   data() {
     return {
       pagenow: 1,
-      limit: 10,
       permission: store.state.permission,
       loading: true,
       searchBoxContent: "",
@@ -104,6 +113,7 @@ export default defineComponent({
       stat: 200,
       count: 0,
       newpid: "",
+      pagelimit:10,
     };
   },
   methods: {
@@ -111,7 +121,7 @@ export default defineComponent({
       this.loading = true;
 
       axios({
-        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/list",
+        url: "http://api.oj.xjcw.com/problems/list",
         method: "post",
         params: {
           page: this.pagenow || 1,
@@ -125,7 +135,7 @@ export default defineComponent({
           this.tableData = data.data.data;
           this.count = data.data.count;
           this.stat = 200;
-          console.log(data);
+          //console.log(data);
         })
         .catch((err) => {
           this.loading = false;
@@ -143,14 +153,21 @@ export default defineComponent({
     newProblem() {
       router.push("/problems/XC" + this.newpid + "/edit");
     },
+    updatee(p){
+      this.pagenow=p;
+      this.getData();
+    }
   },
   watch: {
     searchBoxContent() {
       this.getData();
     },
-    pagenow() {
-      this.getData();
-    },
+    // pagenow() {
+    //   this.getData();
+    // },
+    // pagelimit(){
+    //   this,getData();
+    // }
   },
 });
 </script>

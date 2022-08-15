@@ -1,7 +1,7 @@
 <template>
   <div class="fullscreen">
     <el-row justify="center">
-      <el-col span="6" md="8" sm="12" style="margin-top: 12vh">
+      <el-col :span="6" :md="8" :sm="12" style="margin-top: 12vh">
         <el-card shadow="hover" class="box-card blurin">
           <template #header>
             <div class="card-header">
@@ -101,7 +101,7 @@ export default defineComponent({
     getSession() {
       this.loading = true;
       axios({
-        url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/login",
+        url: "http://api.oj.xjcw.com/users/login",
         method: "post",
         params: {
           username: this.userinfo.username,
@@ -112,7 +112,7 @@ export default defineComponent({
           this.loading = false;
           store.commit("setSession", data.data.session);
           axios({
-            url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/info",
+            url: "http://api.oj.xjcw.com/users/info",
             method: "post",
             params: {
               session: data.data.session,
@@ -120,6 +120,9 @@ export default defineComponent({
           }).then((data: any) => {
             store.commit("setUser", data.data);
             this.$emit("transfer");
+            setTimeout(()=>{
+              this.$emit("transfer");
+            },100)
             ElNotification.success({
               title: "登录成功",
               message: "欢迎来到新成OJ!",
@@ -134,7 +137,7 @@ export default defineComponent({
               message: "用户名或密码错误",
             });
           else {
-            console.log(err);
+            //console.log(err);
             ElNotification.error({
               title: "登录失败",
               message: "网络错误，请稍后再试",

@@ -43,10 +43,7 @@
       </el-table-column>
       <el-table-column label="详细状态">
         <template #default="scope">
-          <!-- <div v-if="scope.row.judgeinfo == 'J'">评测中</div>
-          <div v-else-if="scope.row.judgeinfo == 'C'">编译错误</div> -->
           <record-block :RecordData="scope.row.judgeinfo"></record-block>
-          <!-- <div v-else>{{ scope.row.judgeinfo }}</div> -->
         </template>
       </el-table-column>
     </el-table>
@@ -107,7 +104,7 @@ export default defineComponent({
     getData() {
       this.loading = true;
       post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/list",
+        "http://api.oj.xjcw.com/records/list",
         {
           params: {
             page: this.pagenow || 1,
@@ -118,9 +115,10 @@ export default defineComponent({
       )
         .then((data: any) => {
           this.tableData = data.data;
+          console.log(data.data);
           this.stat = 200;
           post(
-            "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/sum",
+            "http://api.oj.xjcw.com/records/sum",
             {
               params: {
                 session: store.state.session,
@@ -128,9 +126,10 @@ export default defineComponent({
             }
           )
             .then((data: any) => {
+              console.log(data.data)
               this.loading = false;
               this.total = data.data.len;
-              console.log("tot", data.data.len);
+              //console.log("tot", data.data.len);
               this.stat = 200;
             })
             .catch((err) => {

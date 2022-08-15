@@ -42,7 +42,7 @@ export default defineComponent({
     submit() {
       this.loading = true;
       post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/submit",
+        "http://api.oj.xjcw.com/records/submit",
         {
           params: {
             session: store.state.session,

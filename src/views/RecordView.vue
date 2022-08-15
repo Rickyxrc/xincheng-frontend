@@ -170,7 +170,7 @@ export default defineComponent({
     getRecord() {
       this.loading = true;
       post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/records/get",
+        "http://api.oj.xjcw.com/records/get",
         {
           params: {
             session: store.state.session,
@@ -180,7 +180,7 @@ export default defineComponent({
       )
         .then((data: any) => {
           this.loading = false;
-          console.log(data.data);
+          // console.log(data.data);
           this.code = data.data.code;
           this.reslist = data.data.judgeinfo.split("");
           this.user.name = data.data.username;

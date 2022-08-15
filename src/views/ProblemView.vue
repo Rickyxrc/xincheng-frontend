@@ -105,7 +105,7 @@ export default defineComponent({
     },
     getProblem() {
       post(
-        "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/problems/get",
+        "http://api.oj.xjcw.com/problems/get",
         {
           params: {
             pid: this.$props.pid,

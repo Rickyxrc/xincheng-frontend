@@ -67,7 +67,7 @@ export default defineComponent({
     submit() {
       if (this.RawPassword != "" && this.FirstPassword === this.ConfirmPassword)
         axios({
-          url: "https://service-13vsbdxc-1306888085.gz.apigw.tencentcs.com/users/repasswd",
+          url: "http://api.oj.xjcw.com/users/repasswd",
           method: "post",
           params: {
             username: store.state.username,

@@ -75,8 +75,6 @@ body {
 </style>
 
 <script lang="ts" setup>
-store.commit("setSession", localStorage.getItem("session"));
-store.commit("setUser", JSON.parse(localStorage.getItem("user") as string));
 </script>
 
 <script lang="ts">
@@ -98,7 +96,14 @@ export default defineComponent({
       flushing: false,
     };
   },
-
+  created(){
+    //@ts-ignore
+    store.commit("setSession", localStorage.getItem("session"));
+    //@ts-ignore
+    store.commit("setUser", JSON.parse(localStorage.getItem("user")));
+    //@ts-ignore
+    //console.log('js',JSON.parse(localStorage.getItem("user")));
+  },
   components: {
     MenuBar,
     TopBar,
@@ -112,6 +117,7 @@ export default defineComponent({
       router.push(this.href);
     },
     api_valid() {
+      //console.log('debug',store.state.session);
       let session = store.state.session;
       // let cookie = this.$cookies.get('api_key');
       if (
@@ -147,7 +153,7 @@ export default defineComponent({
       this.drawer = false;
     },
     expend() {
-      console.log("OPEN");
+      //console.log("OPEN");
       this.linkOpened = true;
       // this.$refs.changeHref.focus();
     },
